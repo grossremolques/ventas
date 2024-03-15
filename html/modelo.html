@@ -1,0 +1,351 @@
+<form class="row needs-validation g-1" id="formTech" novalidate>
+    <div class="row g-1 hidden">
+        <div class="col-4"> <!-- Tipo -->
+            <label for="tipo" class="col-form-label col-form-label-sm">Tipo</label>
+            <select class="form-select form-select-sm save" id="tipo" name="tipo" required>
+                <option value="Acoplado">Acoplado</option>
+                <option value="Semirremolque">Semirremolque</option>
+                <option value="Carrocería">Carrocería</option>
+            </select>
+        </div>
+        <div class="col-4"> <!-- Ejes -->
+            <label for="ejes" class="col-form-label col-form-label-sm">Ejes</label>
+            <select class="form-select form-select-sm save" id="ejes" name="ejes" required>
+                <option value="" selected></option>
+            </select>
+        </div>
+        <div class="col-4"> <!-- Carrozado -->
+            <label for="carrozado" class="col-form-label col-form-label-sm">Carrozado</label>
+            <select class="form-select form-select-sm save" id="carrozado" name="carrozado" required>
+                <option value="" selected></option>
+            </select>
+        </div>
+    </div>
+    <div class="row g-1"><!-- Carcaterístcas generales -->
+        <h4 class="title"><img src="./assets/icons/caracteristica.png" alt="" width="30px"> Carcterísticas generales
+        </h4>
+        <div class="col-md-6"> <!-- Modelos -->
+            <label for="modelo" class="col-form-label col-form-label-sm">Modelo</label>
+            <select class="form-select form-select-sm save" id="modelo" name="modelo" onchange="UI_Modelos.hadleLoadModelo(event)" required>
+                <option value="" selected></option>
+            </select>
+        </div>
+        <div class="col-md-2"> <!-- Medidas -->
+            <label for="largo" class="col-form-label col-form-label-sm">Largo</label>
+            <input type="text" class="form-control form-control-sm save" list="listLargo" id="largo" name="largo" autocomplete="off"
+                required>
+            <datalist id="listLargo">
+                <option value="" selected></option>
+            </datalist>
+        </div>
+        <div class="col-md-2">
+            <label for="alto" class="col-form-label col-form-label-sm">Alto</label>
+            <select class="form-select form-select-sm save" id="alto" name="alto" required>
+                <option value="" selected></option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label for="ancho" class="col-form-label col-form-label-sm">Ancho</label>
+            <select class="form-select form-select-sm save" id="ancho" name="ancho" required>
+                <option value="" selected></option>
+            </select>
+        </div>
+    </div>
+    <div class="row g-1">
+        <div class="col-md-2">
+            <label for="altura_baranda" class="col-form-label col-form-label-sm">Alto baranda</label>
+            <select class="form-select form-select-sm save" id="altura_baranda" name="altura_baranda" required>
+
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="cumbrera_lateral" class="col-form-label col-form-label-sm">Cumbrera Lateral</label>
+            <select class="form-select form-select-sm save" id="cumbrera_lateral" name="cumbrera_lateral" onchange="UI_Modelos.settingCumbrera(event)"
+                required>
+
+            </select>
+        </div>
+        <div class="col-md-3"><!-- Piso -->
+            <label for="piso" class="col-form-label col-form-label-sm">Piso</label>
+            <select class="form-select form-select-sm save" id="piso" name="piso" required>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="espesor" class="col-form-label col-form-label-sm">Espesor</label>
+            <select class="form-select form-select-sm save" id="espesor" name="espesor" required>
+                <option value="0">0</option>
+                <option value="2.75">2.75</option>
+                <option value="3.2">3.2</option>
+                <option value="4">4</option>
+            </select>
+        </div>
+    </div>
+    <div class="row g-1">
+        <div class="col-md-4">
+            <label for="" class="col-form-label col-form-label-sm"><strong>Puerta lateral</strong></label>
+            <div class="row g-1">
+                <div class="col-md">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text">Cant</span>
+                        <input class="form-control form-control-sm save" id="cant_puertas_laterales" name="cant_puertas_laterales" type="number"
+                            step="2" min="0" max="12" required>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text">Seguros</span>
+                        <select class="form-select form-select-sm save" id="seg_lat" name="seg_lat" required>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <label for="" class="col-form-label col-form-label-sm"><strong>Puerta Trasera</strong></label>
+            <div class="row g-1">
+                <div class="col-md">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text">Tipo</span>
+                        <select class="form-select form-select-sm save" id="puerta_trasera" name="puerta_trasera" required>
+                            <option selected disabled value="">Selecione la puerta trasera</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-auto">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text">Seguros</span>
+                        <select class="form-select form-select-sm save" id="seg_tras" name="seg_tras" required>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row g-1">
+        <div class="col-md">
+            <label for="arcos_centrales" class="col-form-label col-form-label-sm">Arcos centrales</label>
+            <select class="form-select form-select-sm save" id="arcos_centrales" name="arcos_centrales" required>
+            </select>
+        </div>
+        <div class="col-md">
+            <label for="arcos_extremos" class="col-form-label col-form-label-sm">Arcos en extremos</label>
+            <select class="form-select form-select-sm save" id="arcos_extremos" name="arcos_extremos" required></select>
+        </div>
+        <div class="col-md">
+            <label for="kit_acople" class="col-form-label col-form-label-sm">Kit de acople</label>
+            <select class="form-select form-select-sm save" id="kit_acople" name="kit_acople" onchange="UI_Modelos.settingAcople(event)" required>
+            </select>
+        </div>
+        <div class="col">
+            <label for="kit_acople_adicional_fijo" class="col-form-label col-form-label-sm">Kit de acoples
+                adic.</label>
+            <input class="form-control form-control-sm save" name="kit_acople_adicional_fijo"
+                id="kit_acople_adicional_fijo" min="0" step="100" type="number" max="1000" step="100" required>
+        </div>
+        <div class="col-md">
+            <label for="material" class="col-form-label col-form-label-sm">Material</label>
+            <select class="form-select form-select-sm save" id="material" name="material" required>
+            </select>
+        </div>
+    </div>
+    <div class="row g-1 hidden show--acoplado show--fade"><!-- Cajones y Boquillas -->
+        <h4 class="title mt-4"><img src="./assets/icons/remolque.png" alt="" width="30px"> Carácterísticas de Acoplados y
+            Semirremolques</h4>
+        <div class="col-md-3">
+            <label for="cajon" class="col-form-label col-form-label-sm">Cajón de herramientas</label>
+            <select class="form-select form-select-sm save" id="cajon" name="cajon" required>
+            </select>
+        </div>
+        <div class="col-md-9"><!-- Boquillas -->
+            <label for="" class="col-form-label col-form-label-sm">Boquillas</label>
+            <div class="input-group input-group-sm">
+                <span class="input-group-text">Estándar</span>
+                <input type="number" class="form-control save" id="boq_st" name="boq_st" min="0" max="6">
+                <span class="input-group-text">Oculta</span>
+                <input type="number" class="form-control save" id="boq_oculta" min="0" name="boq_oculta" max="6">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="porta_auxilio" class="col-form-label col-form-label-sm">Porta auxilio</label>
+            <select class="form-select form-select-sm save" id="porta_auxilio" name="porta_auxilio" required>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="suspension" class="col-form-label col-form-label-sm">Suspensión</label>
+            <select class="form-select form-select-sm save" id="suspension"  name="suspension" required>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="ojal_perno_rey" class="col-form-label col-form-label-sm">Ojal o Perno rey</label>
+            <select class="form-select form-select-sm save" id="ojal_perno_rey" name="ojal_perno_rey" required></select>
+        </div>
+        <div class="col-md-3">
+            <label for="cilindro" class="col-form-label col-form-label-sm">Cilindro</label>
+            <select class="form-select form-select-sm save" id="cilindro" name="cilindro" required></select>
+        </div>
+        <h5 class="text-success mt-3"><img src="./assets/icons/rueda.png" alt="" width="25px"> Llantas</h5>
+        <div class="col-lg col-md-8">
+            <label for="" class="col-form-label col-form-label-sm">Llantas</label>
+            <div class="input-group input-group-sm">
+                <span class="input-group-text">Acero</span>
+                <input class="form-control save" id="llantas_acero" name="llantas_acero" type="number" max="20" required>
+                <span class="input-group-text">Aluminio</span>
+                <input class="form-control save" id="llantas_aluminio" name="llantas_aluminio" type="number" max="20" required>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label for="medidas" class="col-form-label col-form-label-sm">Medidas</label>
+            <select class="form-select form-select-sm save" id="medidas" name="medidas" required>
+            </select>
+        </div>
+
+    </div>
+    <div class="row g-1"><!-- Opciones de colores -->
+        <h4 class="title mt-4"><img src="./assets/icons/paleta-de-color.png" alt="" width="30px"> Opciones de colores
+        </h4>
+
+        <div class="col-md-4">
+            <label for="color_carrozado" class="col-form-label col-form-label-sm">Color Carrozado</label>
+            <select class="form-select form-select-sm save" id="color_carrozado" name="color_carrozado" required>
+                <option value="">Selecione el color del carrozado</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="color_franja" class="col-form-label col-form-label-sm">Color Franja (opcional)</label>
+            <select class="form-select form-select-sm save" id="color_franja" name="color_franja" required>
+                <option value="">Selecione el color de la franja</option>
+                <option value="N/A">N/A</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="color_lona" class="col-form-label col-form-label-sm">Color de lona</label>
+            <select class="form-select form-select-sm save" aria-label="retencion" id="color_lona" name="color_lona" required>
+                <option value="">Selecione el color de lona</option>
+                <option value="N/A">N/A</option>
+            </select>
+        </div>
+    </div>
+    <div class="row g-1 hidden show--carroceria show--fade">
+        <h4 class="title mt-4"><img src="./assets/icons/semi-camion.png" alt="" width="30px"> Datos del camión</h4>
+        <div class="col-md-4">
+            <label for="camion_marca" class="col-form-label col-form-label-sm">Marca</label>
+            <select class="form-select form-select-sm save" id="camion_marca" name="camion_marca" required></select>
+        </div>
+        <div class="col-md-4">
+            <label for="camion_modelo" class="col-form-label col-form-label-sm">Modelo</label>
+            <input type="text" class="form-control form-control-sm save" id="camion_modelo" name="camion_modelo" required>
+        </div>
+        <div class="col-md-4">
+            <label for="centro_eje" class="col-form-label col-form-label-sm">Centro de eje</label>
+            <input type="number" class="form-control form-control-sm save" id="centro_eje" name="centro_eje" min="0" max="5000" required>
+        </div>
+
+    </div>
+    <div class="row g-1 hidden show--acoplado show--fade"><!-- Adicionales -->
+        <h4 class="title mt-4"><img src="./assets/icons/extra.png" alt="" width="30px"> Adicionales</h4>
+        <div class="col">
+            <label for="levanta_eje" class="col-form-label col-form-label-sm">Levanta eje</label>
+            <select class="form-select form-select-sm save" id="levanta_eje" name="levanta_eje" required>
+
+            </select>
+        </div>
+        
+        <div class="col"><!-- Cajones -->
+            <label for="cajon_adicional" class="col-form-label col-form-label-sm">Cajón adicional</label>
+            <select class="form-select form-select-sm save" id="cajon_adicional" name="cajon_adicional" required>
+            </select>
+        </div>
+        <div class="col">
+            <label for="bulon_largo" class="col-form-label col-form-label-sm">Bulón largo</label>
+            <select class="form-select form-select-sm save" id="bulon_largo" name="bulon_largo" required>
+
+            </select>
+        </div>
+        <div class="col">
+            <label for="divisor_cono" class="col-form-label col-form-label-sm">Divisor de cono</label>
+            <select class="form-select form-select-sm save" id="divisor_cono" name="divisor_cono" required>
+
+            </select>
+        </div>
+        <div class="col">
+            <label for="rampa" class="col-form-label col-form-label-sm">Rampa</label>
+            <select class="form-select form-select-sm save" id="rampa" name="rampa" required>
+
+            </select>
+        </div>
+        <div class="col">
+            <label for="traba_puerta" class="col-form-label col-form-label-sm">Traba de puerta</label>
+            <select class="form-select form-select-sm save" id="traba_puerta" name="traba_puerta" required>
+
+            </select>
+        </div>
+    </div>
+    <div class="row g-1 hidden show--carroceria show--fade"><!-- Cajones y Boquillas carrocería -->
+        <h4 class="title mt-4"><img src="./assets/icons/extra.png" alt="" width="30px"> Adicionales</h4>
+        <div class="row g-1">
+            <!-- Example Code -->
+            <label for="" class="col-form-label col-form-label-sm"><strong>Cajones de Herramienta para
+                    Carrocerías</strong></label>
+            <div class="col-md-auto">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text">Cajón 1</span>
+                    <select class="form-select form-select-sm save" id="cajon_carroceria_1" name="cajon_carroceria_1" required></select>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text">Ubicación</span>
+                    <select class="form-select form-select-sm save" id="cajon_carroceria_ubic_1" name="cajon_carroceria_ubic_1" required></select>
+                </div>
+            </div>
+            <div class="col-md-auto">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text">Cajón 2</span>
+                    <select class="form-select form-select-sm save" id="cajon_carroceria_2" name="cajon_carroceria_2" required></select>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text">Ubicación</span>
+                    <select class="form-select form-select-sm save" id="cajon_carroceria_ubic_2" name="cajon_carroceria_ubic_2" required></select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4"><!-- Boquillas -->
+            <label for="" class="col-form-label col-form-label-sm"><strong>Boquillas</strong></label>
+            <div class="input-group input-group-sm">
+                <span class="input-group-text">Delantera</span>
+                <input type="number" class="form-control save" id="boq_st_delantera" name="boq_st_delantera" min="0" max="6">
+                <span class="input-group-text">Trasera</span>
+                <input type="number" class="form-control save" id="boq_st_trasera" name="boq_st_trasera" min="0" max="6" required>
+            </div>
+        </div>
+        <div class="col-md">
+            <label for="" class="col-form-label col-form-label-sm"><strong>Tanques de agua</strong></label>
+            <div class="input-group input-group-sm">
+                <span class="input-group-text">Tanque 1</span>
+                <select class="form-select form-select-sm save" id="tanq_agua_1" name="tanq_agua_1" required></select>
+                <span class="input-group-text">Tanque 2</span>
+                <select class="form-select form-select-sm save" id="tanq_agua_2" name="tanq_agua_2" required></select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <label for="cajon_frente" class="col-form-label col-form-label-sm">Cajón en frente</label>
+            <select class="form-select form-select-sm save" id="cajon_frente" name="cajon_frente" required></select>
+        </div>
+    </div>
+    <div class="col-12">
+        <h6 for="informacion_adicional" class="">Información
+            adicional</h6>
+        <textarea class="form-control form-control-sm save" id="informacion_adicional" name="informacion_adicional" rows="3"></textarea>
+    </div>
+    <div class="row g-1 justify-content-end mt-4">
+        <div class="col-md-2  onlyNew d-none">
+            <button class="btn btn-danger btn-sm float-end w-100" type="button" onclick="UI_Modelos.saveInLSModelo(event)">Siguiente</button>
+        </div>
+        <div class="col-md-2 onlyEdit d-none">
+            <button class="btn btn-danger btn-sm float-end w-100" type="button" onclick="UI_Modelos.handleValidDatosTecncios(event)">Actualizar</button>
+        </div>
+    </div>
+    
+</form>

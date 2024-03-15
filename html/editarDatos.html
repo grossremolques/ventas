@@ -1,0 +1,34 @@
+<h2 class="text-center title-nota mb-3"></h2>
+<div class="container-form border rounded p-3">
+  <h2 id="subtitleEdit"></h2>
+  <div class="row g-2 my-3">
+    <div class="col">
+      <div class="form-floating">
+        <input type="search" class="form-control form-control-sm" id="searchTrazabilidad" placeholder="1.0001-24" onchange="UI.loadDatosByUnidad(event)">
+        <label for="floatingInput">Buscar Trazabilidad</label>
+        <span class="invalid" id="messageInvalid" hidden>Formato inválido. Ejemplo de formato válido: 1.0001-24</span>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-floating">
+        <input type="text" class="form-control form-control-sm" placeholder="Status" id="status" name="status" readonly>
+        <label for="floatingInput">Status</label>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-floating">
+        <input type="text" class="form-control form-control-sm" placeholder="Disponibilidad" id="disponibilidad" name="disponibilidad" readonly>
+        <label for="floatingInput">Disponibilidad</label>
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-info text-center p-1" role="alert" id="messageOnlyTecnico" hidden>
+    <small>
+      Sólo se pueden editar las trazabilidades en status <strong>Pendiente</strong> y <strong>Presupuesto</strong>
+    </small>
+  </div>
+  <div class="container show--fade" id="techEdit" hidden>
+
+  </div>
+
+</div>

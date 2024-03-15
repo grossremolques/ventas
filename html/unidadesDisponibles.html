@@ -1,0 +1,56 @@
+<h1 class="display-6 my-4 text-center" id="titleTable"></h1>
+<form class="row g-1 align-items-end mb-3" id="formFilter">
+    <div class="col">
+        <label for="modelo_filter" class="col-form-label col-form-label-sm">Modelo</label>
+        <select id="modelo_filter" name="modelo" class="form-select form-select-sm filter-value">
+            <option selected value="">Ninguno</option>
+        </select>
+    </div>
+    <div class="col">
+        <label for="color_filter" class="col-form-label col-form-label-sm">Color</label>
+        <select id="color_filter" name="color" class="form-select form-select-sm filter-value">
+            <option selected value="">Ninguno</option>
+        </select>
+    </div>
+    <div class="col">
+        <label for="largo_filter" class="col-form-label col-form-label-sm">Largo</label>
+        <select id="largo_filter" name="largo" class="form-select form-select-sm filter-value">
+            <option selected value="">Ninguno</option>
+        </select>
+    </div>
+    <div class="col">
+        <label for="status" class="col-form-label col-form-label-sm">Status</label>
+        <select class="form-select form-select-sm filter-value" name="status" id="status_filter">
+            <option selected value="">Ninguno</option>
+        </select>
+    </div>
+    <div class="col-1">
+        <button type="btn" class="btn btn-primary btn-sm w-100" id="search" onclick="Table.filter(event)">
+            <i class="bi bi-funnel-fill"></i> Filtrar
+        </button>
+    </div>
+</form>
+
+<table class="table table-sm" style="font-size: 0.95rem">
+    <thead class="table-dark">
+        <tr>
+            <th id="rowHeader" hidden><i class="bi bi-cash-coin"></i></th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        <td></td>
+    </tbody>
+</table>
+<div class="d-flex justify-content-between">
+    <div class="btn-group" role="group" aria-label="Basic example" id="pagination">
+        <button type="button" class="btn btn-outline-dark" id="prevPage" onclick="Table.prevPage()" disabled>
+            Anterior
+        </button>
+        <button type="button" class="btn btn-outline-dark" id="nextPage" onclick="Table.nextPage()">
+            Siguiente
+        </button>
+    </div>
+    <strong>
+        <p id="footPage">1</p>
+    </strong>
+</div>

@@ -1,0 +1,105 @@
+
+<form class="row needs-validation g-1" novalidate id="formCliente">
+    <div class="col-12">
+        <input type="search" id="cod_cliente" placeholder="Buscar por código" onchange="UI_Cliente.loadClienteByCod(event)" class="form-control form-control-sm">
+    </div>
+    <div class="col-2">
+        <label for="id" class="col-form-label col-form-label-sm">Cód</label>
+        <input type="search" id="id" name="id" class="form-control form-control-sm save save" disabled readonly>
+    </div>
+    <div class="col-8">
+        <label for="razon_social" class="col-form-label col-form-label-sm">Nombre/Razón Social</label>
+        <input type="text" id ="razon_social" name="razon_social" class="form-control form-control-sm save" required disabled>
+    </div>
+    <div class="col-2">
+        <label for="cuit" class="col-form-label col-form-label-sm">CUIT</label>
+        <input type="text" id ="cuit" name="cuit" class="form-control form-control-sm save" required disabled>
+    </div>
+    <div class="col-3">
+        <label for="retencion" class="col-form-label col-form-label-sm">¿Es agente de retención?</label>
+        <select id="retencion" name="retencion" class="form-select form-select-sm save" required disabled>
+            <option value="Sí">Sí</option>
+            <option value="No" selected>No</option>
+        </select>
+    </div>
+    <div class="col-5">
+        <label for="provincia" class="col-form-label col-form-label-sm">Provincia</label>
+        <input list="listProvincia" id ="provincia" name="provincia" class="form-control form-control-sm save" onchange="UI_Cliente.loadDepartamento(event)" required disabled>
+        <datalist id="listProvincia">
+
+        </datalist>
+    </div>
+    <div class="col-4">
+        <label for="partido" class="col-form-label col-form-label-sm">Partido</label>
+        <input list="listPartido" id ="partido" name="partido" class="form-control form-control-sm save" onchange="UI_Cliente.loadLocalidad(event)" autocomplete="off" required disabled>
+        <datalist id="listPartido">
+
+        </datalist>
+    </div>
+    <div class="col-4">
+        <label for="localidad" class="col-form-label col-form-label-sm">Localidad</label>
+        <input list="listLocalidad" id ="localidad" name="localidad" class="form-control form-control-sm save"  autocomplete="off" required disabled>
+        <datalist id="listLocalidad">
+
+        </datalist>
+    </div>
+    <div class="col-7">
+        <label for="calle" class="col-form-label col-form-label-sm">Calle</label>
+        <input type="text" id ="calle" name="calle" class="form-control form-control-sm save" autocomplete="off" required disabled>
+    </div>
+    <div class="col-1">
+        <label for="num" class="col-form-label col-form-label-sm">número</label>
+        <input type="num" id ="num" name="num" class="form-control form-control-sm save"  autocomplete="off" required disabled>
+    </div>
+    <div class="col">
+        <label for="tel" class="col-form-label col-form-label-sm">Telefono</label>
+        <input type="tel" id ="tel" name="tel" class="form-control form-control-sm save" required disabled>
+    </div>
+    <div class="col">
+        <label for="email" class="col-form-label col-form-label-sm">Email</label>
+        <input type="email" id ="email" name="email" class="form-control form-control-sm save"  autocomplete="off" placeholder="mi.email@example.com" required disabled>
+    </div>
+    <div class="row g-1 justify-content-end mt-5">
+        <div class="col-2 d-flex align-items-end">
+            <button class="btn btn-outline-dark btn-sm w-100 " id="btnEditCustumer" onclick="UI_Cliente.handleBtnEditCliente()" disabled><i class="bi bi-pencil-fill"></i> Editar</button>
+        </div>
+        <div class="col-2">
+            <button 
+                class="btn btn-outline-primary btn-sm w-100" 
+                data-bs-toggle ="modal"
+                data-bs-target="#modalAddClient"
+                id="btnAddCustumer">
+                <i class="bi bi-person-fill-add"></i> 
+                Agregar
+            </button>
+  
+            <!-- Modal -->
+            <div class="modal fade" id="modalAddClient" tabindex="-1" aria-labelledby="modalAddClientLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                    <input type="num" class="form-control form-control-sm" id="id_cod" placeholder="Ingrese el código">
+                    <span class="text-danger hidden" id="messageErrorCod"><small>El código no está disponible</small></span>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="UI_Cliente.handleBtnAddCliente()">Agregar código</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-2 d-flex align-items-end">
+            <button class="btn btn-outline-success btn-sm w-100 " onclick="UI_Cliente.handleBtnSaveCliente(event)" id="btnhandleBtnSaveCliente()" disabled><i class="bi bi-pencil-fill"></i> Guardar</button>
+        </div>
+        <div class="col-2 d-flex align-items-end onlyNew d-none">
+            <button class="btn btn-danger btn-sm w-100 " id="btnSelectCustumer" onclick="UI_Cliente.handleBtnSelectCliente(event)" disabled><i class="bi bi-hand-index-fill"></i> Seleccionar</button>
+        </div>
+        <div class="col-2 d-flex align-items-end onlyEdit d-none">
+            <button class="btn btn-danger btn-sm w-100 " id="btnChangetCustumer" onclick="UI_Cliente.handleBtnChangeCliente(event)" disabled><i class="bi bi-hand-index-fill"></i> Reasignar</button>
+        </div>
+    </div>
+    
+    
+</form>
