@@ -1,0 +1,21 @@
+{
+  "name": "ventas",
+  "version": "1.0.0",
+  "description": "Gestor integral de pedidos",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "gh-pages -d src"
+  },
+  "keywords": [
+    "Documentos",
+    "ISO",
+    "9001",
+    "Ventas",
+    "Notas de pedido"
+  ],
+  "author": "Katherin Guerrero",
+  "license": "MIT",
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
+  }
+}

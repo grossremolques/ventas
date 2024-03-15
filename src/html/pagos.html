@@ -1,0 +1,105 @@
+<form class="row needs-validation g-1" id="formPago" novalidate>
+    <div class="row g-2">
+        <div class="col">
+            <div class="row g-1 align-items-end">
+                <div class="col">
+                    <label for="monto" class="col-form-label col-form-label-sm">Precio</label>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text ">$</span>
+                        <input type="number" class="form-control save" id="monto" name="monto" required>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-outline-success btn-sm" onclick="montoLetras()">Convertir a
+                        letras</button>
+                </div>
+            </div>
+            <div class="row g-1 mt-2">
+                <div class="col-12">
+                    <textarea class="form-control form-control-sm save" id="monto_letras" name="monto_letras" placeholder="Monto en letras" readonly></textarea>
+                </div>
+                <div class="col-12">
+                    <label for="forma_pago" class="col-form-label col-form-label-sm">Forma de Pago</label>
+                    <textarea class="form-control form-control-sm save" id="forma_pago" name="forma_pago" rows="3" required></textarea>
+                </div>
+                <div class="col-12">
+                    <label for="comentarios" class="col-form-label col-form-label-sm">Comentarios</label>
+                    <textarea class="form-control form-control-sm save" id="comentarios" name="comentarios" rows="3"></textarea>
+                </div>
+                <div class="col-6">
+                    <label for="f_disp_estimada" class="col-form-label col-form-label-sm">Fecha dispon. estimada</label>
+                    <input type="date" class="form-control form-control-sm save" id="f_disp_estimada" name="f_disp_estimada" required>
+                </div>
+                <div class="col-6">
+                    <label for="vendedor" class="col-form-label col-form-label-sm">Vendedor</label>
+                    <select class="form-select form-select-sm save" id="vendedor" name="vendedor" required>
+                    </select>
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-auto onlyNew d-none">
+            <div class="card text-bg-light mb-3" style="max-width: 375px;">
+                <div class="card-header">Complete esta tarjeta si toma una unidad usada</div>
+                <div class="card-body">
+                    <div class="row g-1" id="tomaUsado">
+                        <div class="col-12">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="tomaUnidadUsada" onclick="UI_Usados.handleTomaUnidadUsada()">
+                                <label class="col-form-label col-form-label-sm form-check-label" for="tomaUnidadUsada">Toma de unidad usada</label>
+                              </div>
+                        </div>
+                        <div class="col-8">
+                            <label for="tipo_usado" class="col-form-label col-form-label-sm">Tipo</label>
+                            <select class="form-select form-select-sm" id="tipo_usado" name="tipo" disabled>
+                                <option value="" selected></option>
+                                <option value="Acoplado">Acoplado</option>
+                                <option value="Carrocería">Carrocería</option>
+                                <option value="Semirremolque">Semirremolque</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label for="anno" class="col-form-label col-form-label-sm">Año</label>
+                            <input type="number" class="form-control form-control-sm" id="anno" name="anno" disabled>
+                        </div>
+                        <div class="col-6">
+                            <label for="marca" class="col-form-label col-form-label-sm">Marca</label>
+                            <select id="marca" name="marca" class="form-select form-select-sm" disabled></select>
+                        </div>
+                        <div class="col-6">
+                            <label for="modelo_carrozado" class="col-form-label col-form-label-sm">Modelo Carroz.</label>
+                            <select id="modelo_carrozado" name="modelo_carrozado" class="form-select form-select-sm" disabled></select>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="vin" class="col-form-label col-form-label-sm">N° Chasis</label>
+                            <input type="text" name="vin" class="form-control form-control-sm" id="vin" disabled>
+                        </div>
+                        <div class="col-6">
+                            <label for="color_carrozado_usado" class="col-form-label col-form-label-sm">Color Carrozado</label>
+                            <select id="color_carrozado_usado" name="color_carrozado" class="form-select form-select-sm" disabled></select>
+                        </div>
+                        <div class="col-6">
+                            <label for="color_franja_usaso" class="col-form-label col-form-label-sm">Color franja</label>
+                            <select id="color_franja_usaso" name="color_franja" class="form-select form-select-sm" disabled></select>
+                        </div>
+                        <div class="col-6">
+                            <label for="dominio" class="col-form-label col-form-label-sm">Dominio</label>
+                            <input type="text" name="dominio" class="form-control form-control-sm" id="dominio" disabled>
+                        </div>
+                        <div class="col-6">
+                            <label for="tasacion" class="col-form-label col-form-label-sm">Tasación</label>
+                            <input type="number" name="tasacion" class="form-control form-control-sm" id="tasacion" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-2 onlyNew d-none">
+        <button class="btn btn-success w-100 mt-3 btn-sm " type="button" onclick="UI.saveAllRegistro(event)">Guardar</button>
+    </div>
+    <div class="col-2 onlyEdit d-none">
+        <button class="btn btn-success w-100 mt-3 btn-sm" type="button" onclick="UI_Pago.handleValidDatosPago(event)">Actualizar</button>
+    </div>
+</form>
