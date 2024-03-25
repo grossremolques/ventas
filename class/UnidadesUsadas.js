@@ -2,6 +2,7 @@ const SS_Usadas = "1okJLQwvmrwRDJk4t7J0fhyPvTBolRwBAOcGbgqnRV8k";
 const SheetUsadas = "Registro!A1:ZZZ";
 const SheetAtributos = "Atributos!A1:ZZZ";
 let AtributosUsados;
+let Usadas;
 class UnidadUsada {
   constructor({
     tomado_en_venta,
@@ -50,16 +51,15 @@ class UnidadUsada {
         num = "7";
         break;
     }
-    Unidades = await this.getUnidades();
+    //z.filter(item => item.trazabilidad.startsWith("5"))
+    Usadas = await this.getUnidades();
     let ID;
-    IDs = Unidades.filter(
-      (item) =>
-        item.trazabilidad.startsWith(num) && item.trazabilidad.endsWith(year)
-    );
+    IDs = Usadas.filter((item) => item.trazabilidad && item.trazabilidad.startsWith(num) && item.trazabilidad.endsWith(year));
     IDs = IDs.map((item) => Number(item.trazabilidad.substr(2, 4)));
     if (IDs.length < 1) {
       ID = 1;
     } else {
+
       ID = Math.max(...IDs) + 1;
     }
     ID = String(ID).padStart(4, "0");
@@ -67,6 +67,7 @@ class UnidadUsada {
     return Number(trazabilidad);
   }
   static async postUnidadUsada(Data) {
+    console.log(Data)
     Data.trazabilidad = await this.createId(Data.tipo)
     let newUsada = new UnidadUsada(Data);
     let headers = await ApiGoogleSheet.getHeaders(SheetUsadas, SS_Usadas);
