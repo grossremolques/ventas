@@ -197,7 +197,6 @@ class UI {
     form.classList.add("was-validated");
     return form.checkValidity();
   }
-
   static async saveAllRegistro(event) {
     let isFormPagoValid = UI_Pago.savePago(event);
     if (isFormPagoValid) {
@@ -340,6 +339,7 @@ class UI {
           DataUnidad.status != "Presupuesto";
         UI.loadInputsById(DataUnidad, isDisabled);
       }
+      console.log(DataUnidad)
       return DataUnidad.status;
     } catch (e) {
       console.log(e)
