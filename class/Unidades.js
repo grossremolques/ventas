@@ -68,6 +68,12 @@ class Unidad {
     cilindro,
     para_stock,
     status,
+    estira_lona,
+    ventilados_cant,
+    ventilados_ubic_alt,
+    techo,
+    lona_con_logo,
+    lona_color_lateral
   }) {
     this.trazabilidad = trazabilidad;
     this.fecha = FormatsDate.latinFormat();
@@ -126,6 +132,12 @@ class Unidad {
     this.registrado_por = registrado_por;
     this.informacion_adicional = informacion_adicional;
     this.status = status;
+    this.estira_lona = estira_lona;
+    this.ventilados_cant = ventilados_cant;
+    this.ventilados_ubic_alt = ventilados_ubic_alt;
+    this.techo = techo;
+    this.lona_con_logo = lona_con_logo;
+    this.lona_color_lateral = lona_color_lateral
   }
   static async getUnidades() {
     try {
