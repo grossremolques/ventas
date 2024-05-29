@@ -334,6 +334,7 @@ class UI {
         await UI_Modelos.loadAttributeElements();
         await UI_Modelos.settingUIByModelo(DataUnidad.modelo);
         UI_Modelos.toggleUIOptions(DataUnidad.tipo);
+        UI_Modelos.toggleUIOptionsCarrozado(DataUnidad.carrozado)
         let isDisabled =
           DataUnidad.status != "Pendiente" &&
           DataUnidad.status != "Presupuesto";
@@ -440,6 +441,10 @@ class UI_Modelos {
     this.loadAtributos("cajon_frente", "cajon");
     this.loadAtributos("camion_marca", "marca");
     this.loadAtributos("traba_puerta", "suspension");
+    this.loadAtributos("estira_lona", "estira_lona");
+    this.loadAtributos("techo", "techo");
+    this.loadAtributos("lona_con_logo", "atrib_si_no");
+    this.loadAtributos("lona_color_lateral", "lona_color_lateral");
   }
   static async loadLocalStorege() {
     if (localStorage.hasOwnProperty("DataFormJSON")) {
@@ -448,6 +453,7 @@ class UI_Modelos {
       UI.loadInputsById(DataFormParse);
       await this.settingUIByModelo(DataFormParse.modelo);
       this.toggleUIOptions(DataFormParse.tipo);
+      this.toggleUIOptionsCarrozado(DataFormParse.carrozado)
     }
   }
   static async loadModelos(inputId = "modelo") {
@@ -587,7 +593,9 @@ class UI_Modelos {
         }
       }
       let tipo = DataModelo.tipo.value;
+      let carrozado = DataModelo.carrozado.value;
       this.toggleUIOptions(tipo);
+      this.toggleUIOptionsCarrozado(carrozado)
     } catch (e) {
       console.log(e);
     }
@@ -613,6 +621,24 @@ class UI_Modelos {
           item.classList.remove("hidden");
         });
         divHidden = document.querySelectorAll(".show--acoplado");
+        divHidden.forEach((item) => {
+          item.classList.add("hidden");
+        });
+        break;
+    }
+  }
+  static toggleUIOptionsCarrozado(carrozado) {
+    let divShows;
+    let divHidden;
+    switch (carrozado) {
+      case "Sider":
+        divShows = document.querySelectorAll(".show--sider");
+        divShows.forEach((item) => {
+          item.classList.remove("hidden");
+        });
+        break;
+      default:
+        divHidden = document.querySelectorAll(".show--sider");
         divHidden.forEach((item) => {
           item.classList.add("hidden");
         });
@@ -651,7 +677,6 @@ class UI_Modelos {
   }
   static settingAcople(event) {
     let kit_acople = event.target.value;
-    console.log(kit_acople);
     let kit_acople_adicional_fijo = document.getElementById(
       "kit_acople_adicional_fijo"
     );
@@ -661,6 +686,17 @@ class UI_Modelos {
     } else {
       kit_acople_adicional_fijo.value = 0;
       kit_acople_adicional_fijo.removeAttribute("disabled", "");
+    }
+  }
+  static settingLonaSider(event) {
+    let isLogo = event.target.value;
+    let lona_color_lateral = document.getElementById('lona_color_lateral')
+    if(isLogo == 'Sí') {
+      lona_color_lateral.setAttribute("disabled", "")
+      lona_color_lateral.value = "N/A"
+    }
+    else {
+      lona_color_lateral.removeAttribute("disabled", "")
     }
   }
   static async handleValidDatosTecncios(event) {
