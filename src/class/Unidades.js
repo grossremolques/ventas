@@ -67,7 +67,6 @@ class Unidad {
     material,
     cilindro,
     para_stock,
-    status,
     estira_lona,
     ventilados_cant,
     ventilados_ubic_alt,
@@ -131,7 +130,6 @@ class Unidad {
     this.para_stock = para_stock;
     this.registrado_por = registrado_por;
     this.informacion_adicional = informacion_adicional;
-    this.status = status;
     this.estira_lona = estira_lona;
     this.ventilados_cant = ventilados_cant;
     this.ventilados_ubic_alt = ventilados_ubic_alt;

@@ -29,26 +29,26 @@ let failedMessage = `
 `;
 class UI {
   static async openNotaDePedido() {
-    this.modalShow(load)
+    this.modalShow(load);
     isPresupuesto = false;
-    DataModelo["status"] = "Pendiente";
+    //DataModelo["status"] = "Pendiente";
     try {
       await this.loadLayout();
-      let onlyEdit = document.querySelectorAll('.onlyNew')
-      onlyEdit.forEach(item => item.classList.remove('d-none'))
-      this.modalHide()
+      let onlyEdit = document.querySelectorAll(".onlyNew");
+      onlyEdit.forEach((item) => item.classList.remove("d-none"));
+      this.modalHide();
     } catch (e) {
       console.log(e);
     }
   }
   static async openPresupuesto() {
-    this.modalShow(load)
+    this.modalShow(load);
     isPresupuesto = true;
-    DataModelo["status"] = "Presupuesto";
+    //DataModelo["status"] = "Presupuesto";
     try {
       await this.loadLayout();
-      let onlyEdit = document.querySelectorAll('.onlyNew')
-      onlyEdit.forEach(item => item.classList.remove('d-none'))
+      let onlyEdit = document.querySelectorAll(".onlyNew");
+      onlyEdit.forEach((item) => item.classList.remove("d-none"));
       this.modalHide();
     } catch (e) {
       console.log(e);
@@ -60,31 +60,34 @@ class UI {
     let title;
     try {
       result = await loadPage("./html/editarDatos.html");
-      console
-      switch(TypeEdit) {
+      console;
+      switch (TypeEdit) {
         case "modelo":
-          title = '<img src="./assets/icons/producto.png" alt="" width="40px"> Edición de datos tecnicos';
+          title =
+            '<img src="./assets/icons/producto.png" alt="" width="40px"> Edición de datos tecnicos';
           break;
         case "pagos":
-          title = '<img src="./assets/icons/factura.png" alt="" width="40px"> Edición de datos de facturación';
+          title =
+            '<img src="./assets/icons/factura.png" alt="" width="40px"> Edición de datos de facturación';
           break;
         case "clientes":
-          title = '<img src="./assets/icons/nicho-de-mercado.png" alt="" width="40px"> Edición de datos de cliente';
-          break
+          title =
+            '<img src="./assets/icons/nicho-de-mercado.png" alt="" width="40px"> Edición de datos de cliente';
+          break;
       }
-      document.getElementById('subtitleEdit').innerHTML = title
-      if(TypeEdit == 'modelo') {
-        document.getElementById('messageOnlyTecnico').removeAttribute('hidden')
+      document.getElementById("subtitleEdit").innerHTML = title;
+      if (TypeEdit == "modelo") {
+        document.getElementById("messageOnlyTecnico").removeAttribute("hidden");
       }
     } catch (e) {
       console.log(e);
     }
   }
   static async openVentaUnidadUsada(event) {
-    Trazabilidad = event.target.id
+    Trazabilidad = event.target.id;
     try {
       let result = await loadPage("./html/unidad-disponible.html");
-      if(result=== 200) {
+      if (result === 200) {
       }
     } catch (e) {
       console.log(e);
@@ -93,15 +96,13 @@ class UI {
   static async openClientes() {
     try {
       await UI_Cliente.loadFormCliente();
-      let form = document.getElementById('formCliente')
-      let title = `<img src="./assets/icons/nicho-de-mercado.png" alt="" width="40px"> Clientes`
-      let h2 = document.createElement('h2')
-      h2.classList.add('m-4')
+      let form = document.getElementById("formCliente");
+      let title = `<img src="./assets/icons/nicho-de-mercado.png" alt="" width="40px"> Clientes`;
+      let h2 = document.createElement("h2");
+      h2.classList.add("m-4");
       h2.innerHTML = title;
-      document.getElementById('interface').insertBefore(h2,form)
-    } catch (e) {
-
-    }
+      document.getElementById("interface").insertBefore(h2, form);
+    } catch (e) {}
   }
   /* Carga los contenidos de Datos técnicos, Cliente, y Gestoría */
   static async loadLayout() {
@@ -200,10 +201,10 @@ class UI {
   static async saveAllRegistro(event) {
     let isFormPagoValid = UI_Pago.savePago(event);
     if (isFormPagoValid) {
-      UI.modalShow(
-        {titulo: "Guardando datos",
-        body: "<p>Se está guardando la información, por favor espere.<br> Guardando datos técnicos ⌛</p>"}
-      );
+      UI.modalShow({
+        titulo: "Guardando datos",
+        body: "<p>Se está guardando la información, por favor espere.<br> Guardando datos técnicos ⌛</p>",
+      });
       /* Guardar información tecnica */
       let status = await Unidad.postUnidad(DataModelo);
       if (status === 200) {
@@ -232,34 +233,50 @@ class UI {
             DataUsada.tomado_en_venta = Trazabilidad;
             let status = await UnidadUsada.postUnidadUsada(DataUsada);
             if (status === 200) {
-              UI.modalShow(
-                {titulo:"Registro exitoso",
-                body:"<p>Se han guardado todos los datos correctamente ✔️</p>"}
-              );
+              UI.modalShow({
+                titulo: "Registro exitoso",
+                body: "<p>Se han guardado todos los datos correctamente ✔️</p>",
+              });
               document.getElementById("interface").innerHTML = successMessage;
             } else {
               document.getElementById("interface").innerHTML = failedMessage;
             }
           } else {
-            UI.modalShow(
-              {titulo:"Registro exitoso",
-              body: "<p>Se han guardado todos los datos correctamente ✔️</p>"}
-            );
+            UI.modalShow({
+              titulo: "Registro exitoso",
+              body: "<p>Se han guardado todos los datos correctamente ✔️</p>",
+            });
             localStorage.removeItem("DataFormJSON");
             document.getElementById("interface").innerHTML = successMessage;
           }
+          let status = await SaveReg135(Trazabilidad);
+          if(status === 200) {
+            UI.modalShow({
+              titulo: "Registro exitoso",
+              body: "<p>Se han guardado todos los datos correctamente ✔️</p>",
+            });
+            localStorage.removeItem("DataFormJSON");
+            document.getElementById("interface").innerHTML = successMessage;
+          }
+          else {
+            UI.modalShow({
+              titulo: "Error",
+              body: "<p>No se ha podido generar el status 🚫</p>",
+            });
+            document.getElementById("interface").innerHTML = failedMessage;
+          }
         } else {
-          UI.modalShow(
-            {titulo:"Error",
-            body: "<p>No se ha podido guardar los datos de gestoría 🚫</p>"}
-          );
+          UI.modalShow({
+            titulo: "Error",
+            body: "<p>No se ha podido guardar los datos de gestoría 🚫</p>",
+          });
           document.getElementById("interface").innerHTML = failedMessage;
         }
       } else {
-        UI.modalShow(
-          {titulo:"Error",
-          body: "<p>No se ha podido guardar los datos técnicos 🚫</p>"}
-        );
+        UI.modalShow({
+          titulo: "Error",
+          body: "<p>No se ha podido guardar los datos técnicos 🚫</p>",
+        });
         document.getElementById("interface").innerHTML = failedMessage;
       }
     }
@@ -286,16 +303,16 @@ class UI {
     let contenedor = this.initializationToEdit(event);
     if (contenedor) {
       this.modalShow(load);
-      let page ;
+      let page;
       let dataStatus;
-      let result = await loadPage(`./html/${TypeEdit}.html`, contenedor)
+      let result = await loadPage(`./html/${TypeEdit}.html`, contenedor);
       if (result === 200) {
         let form = document.querySelector("form");
         this.listenerChangeEvent(form);
-        let onlyEdit = document.querySelectorAll(".onlyEdit")
-        onlyEdit.forEach(item => item.classList.remove('d-none'))
-        switch(TypeEdit) {
-          case 'modelo':
+        let onlyEdit = document.querySelectorAll(".onlyEdit");
+        onlyEdit.forEach((item) => item.classList.remove("d-none"));
+        switch (TypeEdit) {
+          case "modelo":
             page = "modelo";
             dataStatus = await this.loadDatosTecnico();
             break;
@@ -304,7 +321,7 @@ class UI {
             dataStatus = await this.loadDatosGestoria();
             break;
           case "clientes":
-            page = "clientes"
+            page = "clientes";
             dataStatus = await this.loadDatosCliente();
             break;
         }
@@ -316,12 +333,11 @@ class UI {
           Status.removeAttribute("disabled");
           this.modalHide();
           contenedor.removeAttribute("hidden", "");
-        }
-        else {
+        } else {
           this.modalShow({
             titulo: "🚫 Error",
             body: "<p>La trazabilidad no existe</p>",
-            hasBtnClose:true
+            hasBtnClose: true,
           });
         }
       }
@@ -334,51 +350,55 @@ class UI {
         await UI_Modelos.loadAttributeElements();
         await UI_Modelos.settingUIByModelo(DataUnidad.modelo);
         UI_Modelos.toggleUIOptions(DataUnidad.tipo);
-        UI_Modelos.toggleUIOptionsCarrozado(DataUnidad.carrozado)
+        UI_Modelos.toggleUIOptionsCarrozado(DataUnidad.carrozado);
         let isDisabled =
           DataUnidad.status != "Pendiente" &&
           DataUnidad.status != "Presupuesto";
         UI.loadInputsById(DataUnidad, isDisabled);
       }
-      console.log(DataUnidad)
+      console.log(DataUnidad);
       return DataUnidad.status;
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   }
   static async loadDatosGestoria() {
     await UI_Pago.loadVendedores();
     try {
-      let DataGestoria = await Gestoria.getGestoriaById(Trazabilidad)
+      let DataGestoria = await Gestoria.getGestoriaById(Trazabilidad);
       if (DataGestoria) {
         let DataUnidad = await Unidad.getUnidadById(Trazabilidad);
-        DataGestoria.status = DataUnidad.status
-        DataGestoria.monto = DataGestoria.monto ? becomeMontoToNumber(DataGestoria.monto) : 0
+        DataGestoria.status = DataUnidad.status;
+        DataGestoria.monto = DataGestoria.monto
+          ? becomeMontoToNumber(DataGestoria.monto)
+          : 0;
         UI.loadInputsById(DataGestoria);
       }
       return DataGestoria.status;
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   }
   static async loadDatosCliente() {
     try {
-      let DataGestoria = await Gestoria.getGestoriaById(Trazabilidad)
+      let DataGestoria = await Gestoria.getGestoriaById(Trazabilidad);
       if (DataGestoria) {
         let DataUnidad = await Unidad.getUnidadById(Trazabilidad);
-        DataGestoria.status = DataUnidad.status
-        DataGestoria.monto = becomeMontoToNumber(DataGestoria.monto)
-        let cod_cliente = document.getElementById('cod_cliente');
-        document.getElementById('status').value = DataGestoria.status
-        cod_cliente.value = DataGestoria.codigo
-        cod_cliente.setAttribute('onchange','UI_Cliente.loadChangeCliente(event)')
-        await UI_Cliente.loadClienteByCod()
+        DataGestoria.status = DataUnidad.status;
+        DataGestoria.monto = becomeMontoToNumber(DataGestoria.monto);
+        let cod_cliente = document.getElementById("cod_cliente");
+        document.getElementById("status").value = DataGestoria.status;
+        cod_cliente.value = DataGestoria.codigo;
+        cod_cliente.setAttribute(
+          "onchange",
+          "UI_Cliente.loadChangeCliente(event)"
+        );
+        await UI_Cliente.loadClienteByCod();
       }
       return DataGestoria.status;
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-    
   }
   static listenerChangeEvent(body) {
     let list = body.querySelectorAll(".form-select, .form-control");
@@ -453,7 +473,7 @@ class UI_Modelos {
       UI.loadInputsById(DataFormParse);
       await this.settingUIByModelo(DataFormParse.modelo);
       this.toggleUIOptions(DataFormParse.tipo);
-      this.toggleUIOptionsCarrozado(DataFormParse.carrozado)
+      this.toggleUIOptionsCarrozado(DataFormParse.carrozado);
     }
   }
   static async loadModelos(inputId = "modelo") {
@@ -595,7 +615,7 @@ class UI_Modelos {
       let tipo = DataModelo.tipo.value;
       let carrozado = DataModelo.carrozado.value;
       this.toggleUIOptions(tipo);
-      this.toggleUIOptionsCarrozado(carrozado)
+      this.toggleUIOptionsCarrozado(carrozado);
     } catch (e) {
       console.log(e);
     }
@@ -690,18 +710,17 @@ class UI_Modelos {
   }
   static settingLonaSider(event) {
     let isLogo = event.target.value;
-    let lona_color_lateral = document.getElementById('lona_color_lateral')
-    if(isLogo == 'Sí') {
-      lona_color_lateral.setAttribute("disabled", "")
-      lona_color_lateral.value = "N/A"
-    }
-    else {
-      lona_color_lateral.removeAttribute("disabled", "")
+    let lona_color_lateral = document.getElementById("lona_color_lateral");
+    if (isLogo == "Sí") {
+      lona_color_lateral.setAttribute("disabled", "");
+      lona_color_lateral.value = "N/A";
+    } else {
+      lona_color_lateral.removeAttribute("disabled", "");
     }
   }
   static async handleValidDatosTecncios(event) {
     event.preventDefault();
-    let form = document.querySelector('form')
+    let form = document.querySelector("form");
     if (UI.isValidForm(event, form)) {
       DataModeloUpdate = {};
       const inputsChanges = document.querySelectorAll(".change-save");
@@ -736,14 +755,14 @@ class UI_Modelos {
         body: `<p>
         Los datos han sido actualizados</p>
         <a class="btn btn-success mt-3 btn-sm" href="#" onclick="openGAP()" role="button"><i class="bi bi-file-richtext"></i> Crear nota de pedido</a>`,
-        hasBtnClose: true
+        hasBtnClose: true,
       });
       UI.openHome();
     } else {
       UI.modalShow({
         titulo: "🚫 Error",
         body: "<p>No se actualizado la información</p>",
-        hasBtnClose: true
+        hasBtnClose: true,
       });
     }
   }
@@ -859,12 +878,11 @@ class UI_Cliente {
   static async loadClienteByCod(event) {
     UI.modalShow(load);
     let cod;
-    if(event) {
+    if (event) {
       cod = event.target.value;
       this.resetForm();
-    }
-    else {
-      cod = document.getElementById('cod_cliente').value;
+    } else {
+      cod = document.getElementById("cod_cliente").value;
     }
     try {
       let cliente = await Cliente.getClienteByCodigo(cod);
@@ -956,27 +974,25 @@ class UI_Cliente {
   static abledBtn(idBtn) {
     document.getElementById(idBtn).removeAttribute("disabled");
   }
-  static async loadChangeCliente(event){
+  static async loadChangeCliente(event) {
     await this.loadClienteByCod(event);
-    let btnChangetCustumer = document.getElementById('btnChangetCustumer');
-    btnChangetCustumer.removeAttribute('disabled','')
+    let btnChangetCustumer = document.getElementById("btnChangetCustumer");
+    btnChangetCustumer.removeAttribute("disabled", "");
   }
   static async handleBtnChangeCliente(event) {
-    event.preventDefault()
+    event.preventDefault();
     UI.modalShow(load);
-    let data = {}
-    data.codigo = document.getElementById('id').value;
-    await Gestoria.update(Trazabilidad,data);
+    let data = {};
+    data.codigo = document.getElementById("id").value;
+    await Gestoria.update(Trazabilidad, data);
     UI.openHome();
     UI.modalShow({
       titulo: "✔️ Requerimiento completado",
       body: `<p>
       Los datos han sido actualizados</p>
       <a class="btn btn-success mt-3 btn-sm" href="#" onclick="openGAP()" role="button"><i class="bi bi-file-richtext"></i> Crear nota de pedido</a>`,
-      hasBtnClose: true
+      hasBtnClose: true,
     });
-
-    
   }
 }
 class UI_Pago {
@@ -1020,7 +1036,7 @@ class UI_Pago {
   }
   static handleValidDatosPago(event) {
     event.preventDefault();
-    let form = document.querySelector('form')
+    let form = document.querySelector("form");
     if (UI.isValidForm(event, form)) {
       DataPagoUpdate = {};
       const inputsChanges = document.querySelectorAll(".change-save");
@@ -1055,14 +1071,14 @@ class UI_Pago {
         body: `<p>
         Los datos han sido actualizados</p>
         <a class="btn btn-success mt-3 btn-sm" href="#" onclick="openGAP()" role="button"><i class="bi bi-file-richtext"></i> Crear nota de pedido</a>`,
-        hasBtnClose: true
+        hasBtnClose: true,
       });
       UI.openHome();
     } else {
       UI.modalShow({
         titulo: "🚫 Error",
         body: "<p>No se actualizado la información</p>",
-        hasBtnClose: true
+        hasBtnClose: true,
       });
     }
   }
@@ -1091,4 +1107,17 @@ const load = {
         </svg>
       </div>
   `,
+};
+const SaveReg135 = async (id) => {
+  let data = {}
+  let range = "Registro!A1:ZZZ";
+  data.trazabilidad = id;
+  data.presupuesto = isPresupuesto
+  //let data = [[id]];
+  let sheetId = "1v2H8QE5xAZn5MeQBlqRIGx5mOLuTo5W5DLCMkance_4";
+  let headers = await ApiGoogleSheet.getHeaders(range,sheetId);
+  let newData = objectToArray(data, headers);
+  let response = await ApiGoogleSheet.postData(range, [newData], sheetId);
+  return response.status
+  //console.log("SaveReg135: ", response);
 };
