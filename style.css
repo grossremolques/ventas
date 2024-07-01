@@ -81,3 +81,10 @@ select {
     max-width: 900px;
     margin: auto;
 }
+.version {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-style: italic;
+    font-size: 12px;
+}

@@ -28,7 +28,7 @@ class Usuarios {
     static async getVendedores() {
         try {
             let usuarios = await this.getActiveUsers();
-            let vendedores = usuarios.filter(item => item.puesto === 'Asesor de Ventas');
+            let vendedores = usuarios.filter(item => item.puesto === 'Asesor Comercial');
             return vendedores
         } catch (e) {
             console.log(e)
