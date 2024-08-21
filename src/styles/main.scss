@@ -1,0 +1,268 @@
+@import "bootstrap/scss/bootstrap";
+//#4285F4
+$color-google-docs: #4285F4;
+$disable-border: #afafaf;
+tbody {
+  tr {
+    &:hover {
+      cursor: pointer;
+      td {
+        background-color: aliceblue;
+        color: blue;
+      }
+    }
+  }
+}
+#formCliente {
+  margin: auto;
+  max-width: 750px;
+}
+#load {
+  position: relative;
+  top: 20vw; 
+  text-align: center;
+}
+label {
+  font-weight: 500;
+  color: #222;
+}
+ 
+//PDF
+#frame {
+  width: 100%;
+  height: 90vh;
+}
+.contentPDF {
+  display: block;
+  width: 147mm;
+  height: 255mm;
+  border: #ddd 0px solid;
+  font-size: 10px !important;
+  position: relative;
+  * {
+    font-family: helvetica;
+    box-sizing: border-box;
+    color: #222;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: #444 0.5px solid;
+  }
+  .title {
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    margin: 30px 0 20px;
+  }
+  p {
+    line-height: 25px;
+    &.paragraph {
+      margin-bottom: 7px ;
+    }
+    &.regular-font {
+      line-height: 15px;
+    }
+    &.small {
+      font-size: 9px;
+      line-height: 12px;
+    }
+    &.x-small {
+      font-size: 7px;
+      line-height: 8px;
+      margin: 5px 0;
+    }
+  }
+  strong {
+    line-height: initial;
+  }
+  em {
+    line-height: initial;
+  }
+  .signature {
+    margin-top: 20px;
+    display: flex;
+    .buyer, .seller {
+      width: 50%;
+    }
+    ul {
+      padding: 0 !important;
+      li {
+        list-style-type: none;
+        height: 17px;
+        &:first-child {
+          font-weight: 700;
+          margin-bottom: 5px;}
+      }
+      
+    }
+  }
+  footer {
+    position: absolute;
+    bottom: 0;
+    font-size: 10px;
+    width: 146mm;
+    .contenedor {
+      display: flex;
+      align-items: baseline;
+      font-size: 10px;
+      gap: 10px;
+      .size_1 {
+        width: 40px;
+      }
+      .size_2 {
+        flex-grow: 1;
+        border-bottom: #ddd 0.5px solid;
+      }
+    }
+  }
+  h6 {
+    font-size: 12px !important;
+    font-weight: 700;
+    padding: 0;
+    font-style: italic;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.9em;
+    .brd-b {
+      border-bottom: $disable-border 1px solid;
+    }
+    td {
+      border-top: $disable-border 1px solid !important;
+      border-left: $disable-border 1px solid !important;
+      padding-left: 5px;
+      padding-right: 3px;
+      height: 16px;
+      &:last-child {
+        border-right: $disable-border 1px solid !important;
+      }
+    }
+    .thead-description {
+      border-top: $disable-border 1px solid !important;
+      border-right: $disable-border 1px solid !important;
+      text-align: center;
+      th {
+        border-left: $disable-border 1px solid !important;
+      }
+    }
+    .cell-title {
+      background-color: #ebfff4;
+      font-weight: 700;
+    }
+    .cell-disabled {
+      background-color: #dbdada;
+      border-top: $disable-border 1px solid;
+    }
+    .title-table {
+      font-size: 11px;
+    }
+    .cell-content-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .table-span {
+      font-size: 9px !important;
+      font-weight: 600;
+      background-color: rgb(219, 253, 255);
+      padding: 0 5px;
+    
+    }
+    
+  }
+  .nota-pedido {
+    position: relative;
+    .id_vendedor {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .datos-clientes{
+      /* *{
+        padding-left: 0; 
+      } */
+      .row {
+        margin: 5px 0;
+        .resaltar {
+          font-weight: 700;
+        }
+        
+      }
+    }
+  }
+  
+}
+.segunda-pag {
+  margin-top: 45px;
+}
+.border-card {
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  padding: 0.25rem;
+  box-shadow: 0 0 5px 2px rgba(0,0,0,0.12);
+}
+.was-validated {
+  .form-control {
+    &:valid {
+      background-image: none;
+      padding-right: 0;
+    }
+    &:invalid {
+      background-image: none;
+      padding-right: 0;
+    }
+  }
+}
+footer.home {
+  color: white;
+  position: fixed;
+  bottom: 0;
+  font-size: 12px;
+  width: 100%;
+  p {
+    margin: 5px 0;
+  }
+}
+#status{
+  &[title="Pendiente"] {
+    @extend .bg-warning
+  }
+  &[title="Presupuesto"] {
+    @extend .bg-primary-subtle
+  }
+  &[title="Controlado"] {
+    @extend .bg-success;
+    color: white;
+  }
+  &[title="Corte y plegado"] {
+    @extend .bg-info-subtle;
+  }
+  &[title="Preparación de partes"] {
+    @extend .bg-warning-subtle;
+  }
+  &[title="Carrozado"] {
+    background-color: #712cf9;
+    color: white;
+  }
+  &[title="Carrozado-controlado"] {
+    @extend .bg-danger-subtle;
+  }
+  &[title="Pintura"] {
+    @extend .bg-info;
+  }
+  &[title="Montaje"] {
+    @extend .bg-success-subtle;
+  }
+  &[title="Finalizado"] {
+    @extend .bg-dark;
+    color: white;
+  }
+  &[title="Anulada"] {
+    @extend .bg-danger;
+    color: white;
+  }
+}
+
