@@ -4,7 +4,7 @@
   "description": "Gestor integral de pedidos",
   "main": "index.js",
   "scripts": {
-    "deploy": "gh-pages -d src",
+    "deploy": "gh-pages -d dist",
     "build": "webpack --mode production",
     "dev": "webpack --config webpack.config.dev.js",
     "build:watch": "webpack --watch --config webpack.config.dev.js",
