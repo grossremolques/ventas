@@ -1,5 +1,6 @@
 //;
 window.addEventListener("load", async function (event) {
+    console.log('Hola')
     await loadPage("./html/loaded.html");
     document.getElementById('instructionAccess').removeAttribute('hidden')
   });
