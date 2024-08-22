@@ -171,7 +171,7 @@ const htmlREG_009 = (data) => {
               </tr>
               <tr class="brd-b">
                 <td scope="row">FECHA DE EMISIÓN</td>
-                <td> 25/01/2024</td>
+                <td> 22/08/2024</td>
                 <td>SUBSECTOR:</td>
                 <td>GENERAL</td>
                 <td>PAGINAS:</td>

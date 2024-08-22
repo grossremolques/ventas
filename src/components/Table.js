@@ -35,7 +35,9 @@ class Table {
         </div>
       </div>
       <div class="col offset text-end">
-        Pág. <span id="activePage">${this.activePage}</span> / <span id="numOfPage">${this.numOfPages}</span>
+        Pág. <span id="activePage">${
+          this.activePage
+        }</span> / <span id="numOfPage">${this.numOfPages}</span>
       </div>
     </div>
     `;
@@ -106,16 +108,15 @@ class Table {
     this.indexStart = 0;
     this.activePage = 1;
     this.dataFilter = this.data;
-    console.log(this.dataFilter)
+    console.log(this.dataFilter);
     for (let key in valuesFilter) {
-      console.log(key)
+      console.log(key);
       this.dataFilter = this.dataFilter.filter((item) => {
-        return this.normalizeString(item[key]).includes(
-          this.normalizeString(valuesFilter[key])
-        );
-        /* if (item[key]) {
-          
-        } */
+        if (item[key]) {
+          return this.normalizeString(item[key]).includes(
+            this.normalizeString(valuesFilter[key])
+          );
+        }
       });
     }
     this.isFiltered = true;

@@ -80,7 +80,9 @@ const UsedTrailer = async (content) => {
     template.settings()
     let details = trailer.defectos_superficie;
     loadCheckedInputs(details);
+    
     loadInputsById(trailer, form);
+    deletedDefaultFild(form)
     loadInputsById(trailer, formControl);
     listenerChangeEvent(form);
     listenerChangeEventCheck(formControl);
@@ -98,6 +100,14 @@ const UsedTrailer = async (content) => {
     console.log(e);
   }
 };
+const deletedDefaultFild = (form) => {
+  const inputs = form.querySelectorAll('.form-control');
+  inputs.forEach(item => {
+    if(item.value=== 'A definir') {
+      item.value= ""
+    }
+    })
+}
 //Actualizar
 const handleUpdate = (event) => {
   const data = getDataFormValid(event, form, ".change-save");

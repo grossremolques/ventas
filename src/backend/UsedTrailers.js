@@ -1,5 +1,6 @@
 import ApiServices from "./ApiServices";
 import dayjs from "dayjs";
+import { normalizeString } from "../utils/Tools";
 const SheetId = process.env.SHEETID_USED_TRAILERS;
 class UsedTrailers extends ApiServices {
   async createId(tipo) {
@@ -60,6 +61,14 @@ class UsedTrailers extends ApiServices {
     try {
       const response = await this.getDataInJSON();
       return response.find((item) => item.trazabilidad === id);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  async getUsedTrailerByDominio(dominio) {
+    try {
+      const response = await this.getDataInJSON();
+      return response.find((item) => normalizeString(item.dominio) === normalizeString(dominio));
     } catch (e) {
       console.log(e);
     }
