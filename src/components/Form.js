@@ -136,7 +136,7 @@ const textarea = (props) => {
     ${props.mdCol ? `col-md-${props.mdCol}` : ""}"
     ${props.xlCol ? `col-md-${props.xlCol}` : "col-md"}">
         ${props.nameLabel ? label(props) : ""}
-        <textarea class="form-control form-control-sm" name="${props.name}" id="${props.id}" rows="${props.row}" ></textarea>
+        <textarea class="form-control form-control-sm" name="${props.name}" id="${props.id}" rows="${props.row}" ${props.required ? "required" : ""}></textarea>
     </div>`;
   return view;
 }

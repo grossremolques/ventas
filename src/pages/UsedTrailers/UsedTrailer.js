@@ -277,9 +277,7 @@ const handleControl = async (event) => {
       } else {
         template.modal.create({
           title: "⛔ Advertencia",
-          content: `<p>Esta unidad no está asociada a una venta de unidad 0 km.
-            <br>Diríjase
-            </p>`,
+          content: `<p>Esta unidad no está asociada a una venta de unidad 0 km.</p>`,
         });
       }
     }
@@ -310,9 +308,7 @@ const handleInforme = async (event) => {
       } else {
         template.modal.create({
           title: "⛔ Advertencia",
-          content: `<p>Esta unidad no está asociada a una venta de unidad 0 km.
-            <br>Diríjase
-            </p>`,
+          content: `<p>Esta unidad no está asociada a una venta de unidad 0 km.</p>`,
         });
       }
     }

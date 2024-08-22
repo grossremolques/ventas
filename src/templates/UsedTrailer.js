@@ -40,6 +40,7 @@ class FormUsedTrailer {
               name: "modelo",
               sizes: "sm",
               row: 2,
+              require: true
             })}
             ${selectComponent({
               col: "6",
@@ -572,7 +573,7 @@ class FormUsedTrailer {
   async control() {
     const attributes = await UsedAttributes.getDataInJSON();
     const view = `
-    <form class="row needs-validation g-1 mt-3" novalidate id="formControl">
+    <form class="row needs-validation g-1 mt-3 d-none" novalidate id="formControl">
     <div class="row g-1">
     ${SubTitle(
       "Datos de control, cuando ingresa la unidad a fábrica",
@@ -588,6 +589,7 @@ class FormUsedTrailer {
         name: "patentes",
         required: true,
         nameLabel: "Patentes",
+        value: 2
       })}
       ${inputComponent({
         col: "12",
@@ -599,6 +601,7 @@ class FormUsedTrailer {
         name: "chapa_ident",
         required: true,
         nameLabel: "Chapa ident.",
+        value: 1
       })}
       ${selectComponent({
         col: "12",
