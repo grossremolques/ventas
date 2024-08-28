@@ -115,7 +115,7 @@ class FormTrailer {
         ${SubTitle("Datos técnicos", IconTitleTechnical)}
         <div class="col-md me-1 col-12 border-card">
           <div class="row g-1 mt-1">
-          ${MiniSubTitle("Características", IconTitleCharacteristics)}
+          ${MiniSubTitle({title:"Características", urlIcon:IconTitleCharacteristics})}
             ${selectComponent({
               col: "12",
               xlCol: "auto",
@@ -442,7 +442,7 @@ class FormTrailer {
       <div class="row g-2 mt-2">
         <div class="col-md me-1 col-12 border-card">
           <div class="row g-1 mt-2">
-            ${MiniSubTitle("Llantas", IconTitleTiel)}
+            ${MiniSubTitle({title:"Llantas",urlIcon: IconTitleTiel})}
             <div class="col-md-9 col-12">
               ${label({
                 id: "",
@@ -482,7 +482,7 @@ class FormTrailer {
         </div>
         <div class="col-md-8 ms-1 col-12 border-card">
           <div class="row g-1 mt-2">
-            ${MiniSubTitle("Accesorios", IconTitleExtras)}
+            ${MiniSubTitle({title:"Accesorios",urlIcon: IconTitleExtras})}
             ${selectComponent({
               col: "12",
               sizes: "sm",
@@ -547,7 +547,7 @@ class FormTrailer {
         ${SubTitle("Características para Siders", IconTitleSider)}
         <div class="col-md me-1 col-12 border-card">
           <div class="row g-1 mt-2">
-            ${MiniSubTitle("Lona", IconTitleLona)}
+            ${MiniSubTitle({title:"Lona",urlIcon: IconTitleLona})}
             ${selectComponent({
               col: "12",
               xlCol: 2,
@@ -583,7 +583,7 @@ class FormTrailer {
         </div>
         <div class="col-md ms-1 col-12 border-card">
           <div class="row g-1 mt-2">
-            ${MiniSubTitle("Ventilados y tipo de techo", IconTitleGuias)}
+            ${MiniSubTitle({title:"Ventilados y tipo de techo",urlIcon: IconTitleGuias})}
             <div class="col-md-9 col-12">
               ${label({
                 id: "",
@@ -633,7 +633,7 @@ class FormTrailer {
         ${SubTitle("Características para Carrocerías", IconTitleCarroceria)}
         <div class="col-md-3 me-1 col-12 border-card">
           <div class="row g-1 mt-2">
-            ${MiniSubTitle("Datos de camión", IconTitleCamion)}
+            ${MiniSubTitle({title:"Datos de camión", urlIcon: IconTitleCamion})}
             ${selectComponent({
               col: "12",
               xlCol: 12,
@@ -669,7 +669,7 @@ class FormTrailer {
         </div>
         <div class="col-md ms-1 col-12 border-card">
           <div class="row g-1 mt-2">
-            ${MiniSubTitle("Adicionales", IconTitleExtras)}
+            ${MiniSubTitle({title:"Adicionales",urlIcon: IconTitleExtras})}
             <div class="col-md-12 col-12">
               ${label({
                 id: "",
@@ -768,6 +768,7 @@ class FormTrailer {
               name: "cajon_frente",
               required: true,
               nameLabel: "Cajón en frente",
+              step: 600
             })}
           </div>
         </div>
@@ -819,7 +820,7 @@ class FormTrailer {
     const view = `
     <div class="col-xl-2 ms-1 col-12 border-card">
       <div class="row g-1 mt-2">
-        ${MiniSubTitle("Opciones de colores", IconTitleColors)}
+        ${MiniSubTitle({title:"Opciones de colores", urlIcon:IconTitleColors})}
         ${selectComponent({
           col: "12",
           xlCol: 12,

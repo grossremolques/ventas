@@ -16,6 +16,8 @@ import AddTrailer from "../pages/Trailers/AddTrailer";
 import { Print_NotaPedido } from "../pages/Trailers/Print_NotaPedido";
 import Trailer from "../pages/Trailers/Trailer";
 import { Informe } from "../pages/Informe";
+import Camiones from "../pages/Camiones/Camiones";
+import AddCamion from "../pages/Camiones/AddCamion";
 
 const routes = {
   "/": Home,
@@ -32,7 +34,9 @@ const routes = {
   "/add-trailer": AddTrailer,
   "/print-nota_pedido:id": Print_NotaPedido,
   "/trailer=:id" : Trailer,
-  "/print-informe?data=:id" : Informe
+  "/print-informe?data=:id" : Informe,
+  "/camiones": Camiones,
+  "/add-camion": AddCamion,
 };
 const resolveRoutes = (route) => {
   if (route === undefined) {

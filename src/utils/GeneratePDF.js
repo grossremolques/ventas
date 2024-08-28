@@ -729,13 +729,15 @@ const html_informe = (data) => {
       `;
   return template;
 };
-const footerNotaPedido = () => {
+const footerNotaPedido = (firma) => {
   const template = `
     <div class="contenedor">
-      <div class="box size_1">Firma</div>
+      <div class="box size_1">Firma Solicitante</div>
       <div class="box size_2"></div>
-      <div class="box size_1">Firma</div>
-      <div class="box size_2"></div>
+      <div class="box size_1">Firma Autorizante</div>
+      <div class="box size_2 box-firma">
+        ${firma ? '<img class="firma-julieta" src="assets/images/firma_julieta.png" alt="">':''}
+      </div>
     </div>
     <div class="contenedor">
       <div class="box size_1">Aclaración</div>
@@ -832,7 +834,7 @@ const htmlNotaPedido = async (data) => {
         ${condiciones()}
       </main>
       <footer>
-        ${footerNotaPedido()}
+        ${footerNotaPedido(true)}
       </footer>
   
     </div>
@@ -1147,10 +1149,14 @@ const getTipoLlanta = (data) => {
 };
 const getTipoDestape = (data) => {
   const arcos = (tipo) => {
-    return tipo === "Estándar" ? "27.9 mm" : "42.5 mm";
+    return tipo === "Estándar" ? "26.9 mm" : "42.5 mm";
   };
-  const cant_arcos = (cant) => {
-    return cant / 2 + (cant / 2 - 1);
+  const cant_arcos = (data) => {
+    let rsp = ''
+    if(data.tipo!='Carrocería') {
+      rsp = data.cant_puertas_laterales / 2 + (data.cant_puertas_laterales / 2 - 1);
+    }
+    return  rsp
   };
   let tipo_destape = '';
   if(!data.carrozado.includes('Batea')){
@@ -1160,7 +1166,7 @@ const getTipoDestape = (data) => {
   
   else if (data.cumbrera_lateral == "Cumbrera estándar" || data.cumbrera_lateral =='Sin cumbrera'){
     tipo_destape = `; ${data.cumbrera_lateral.toLocaleLowerCase()}, <em>con acoples y ${cant_arcos(
-      data.cant_puertas_laterales
+      data
     )} arcos de ${arcos(data.arcos_centrales)} y 2 arcos de ${arcos(
       data.arcos_extremos
     )}, en el frente y contrafrente</em>`;

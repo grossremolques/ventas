@@ -18,12 +18,12 @@ const SubTitle = (title, urlIcon) => {
     `;
   return view;
 };
-const MiniSubTitle = (title, urlIcon) => {
+const MiniSubTitle = (props) => {
   const view = `
-    <h6 class = "text-primary">
-        <img src="${urlIcon}" alt="" width="22px" style="
+    <h6 class = "text-primary ${props.margin ? `mt-${props.margin}`: ''}">
+        <img src="${props.urlIcon}" alt="" width="22px" style="
     vertical-align: top;">
-        ${title}
+        ${props.title}
     </h6>
     `;
   return view;

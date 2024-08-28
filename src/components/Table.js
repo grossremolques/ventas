@@ -17,7 +17,7 @@ class Table {
   }
   createTable() {
     const view = `
-    <table class="table mt-3">
+    <table class="table mt-3" style="font-size: 15px">
       <thead>
         <tr class="table-dark">
             ${this.createHeader()}
@@ -108,9 +108,7 @@ class Table {
     this.indexStart = 0;
     this.activePage = 1;
     this.dataFilter = this.data;
-    console.log(this.dataFilter);
     for (let key in valuesFilter) {
-      console.log(key);
       this.dataFilter = this.dataFilter.filter((item) => {
         if (item[key]) {
           return this.normalizeString(item[key]).includes(

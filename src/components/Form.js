@@ -13,6 +13,7 @@ const input = (props) => {
         ${props.required ? "required" : ""}
         ${props.value ? `value="${props.value}"` : ""}
         ${props.step ? `step= ${props.step}` : ""}
+        ${props.disabled ? `disabled` : ""}
         ${props.readonly === true ? "readonly" : ""}>
     `;
   //autocomplete="off"
@@ -20,12 +21,12 @@ const input = (props) => {
 };
 const select = (props) => {
   const view = `
-    <select id="${props.id}" name="${props.name}" class="form-control ${props.className ? props.className : ""} ${props.sizes ? `form-control-${props.sizes}` : ""}" ${props.placeholder ? `placeholder="${props.placeholder}"` : ""} ${props.required ? "required" : ""} ${props.disabled === true ? "disabled" : ""}> ${options(props)} </select>    `;
+    <select id="${props.id}" name="${props.name}" class="form-control ${props.className ? props.className : ""} ${props.sizes ? `form-control-${props.sizes}` : ""}" ${props.required ? "required" : ""} ${props.disabled === true ? "disabled" : ""}> ${options(props)} </select>    `;
   return view;
 };
 const options = (props) => {
   const view = `
-    <option value=""></option>
+    <option value="" select>${props.placeholder ? props.placeholder : ""} </option>
     ${
       props.data
         ? `
@@ -151,5 +152,6 @@ export {
   label,
   inputGroup,
   selectGroup,
-  textarea
+  textarea,
+  select
 };

@@ -134,6 +134,54 @@ const convertGroupDates = (obj,type) => {
   }
   return obj
 }
+const trimCustumize = () => {
+  const inputs = document.querySelectorAll(".custumeFormatt");
+  inputs.forEach((input) => {
+    input.addEventListener("keydown", (event) => {
+      if (event.key === " ") {
+        event.preventDefault();
+      }
+    });
+    input.addEventListener("input", (event) => {
+      event.target.value = event.target.value.toUpperCase();
+    });
+  });
+}
+const sortByTraz = (a, b) => {
+  // Obtener los dos últimos dígitos
+  const lastTwoA = a.trazabilidad.slice(-2);
+  const lastTwoB = b.trazabilidad.slice(-2);
+  // Comparar por los dos últimos dígitos
+  if (lastTwoA !== lastTwoB) {
+    return lastTwoA - lastTwoB;
+  }
+  // Obtener el primer dígito después del "."
+  const firstDigitA = parseInt(
+    a.trazabilidad.substring(
+      a.trazabilidad.indexOf(".") + 1,
+      a.trazabilidad.indexOf("-")
+    )
+  );
+  const firstDigitB = parseInt(
+    b.trazabilidad.substring(
+      b.trazabilidad.indexOf(".") + 1,
+      b.trazabilidad.indexOf("-")
+    )
+  );
+  // Comparar por el primer dígito
+  if (firstDigitA !== firstDigitB) {
+    return firstDigitA - firstDigitB;
+  }
+  // Comparar por los 4 dígitos después del "."
+  const digitsA = parseInt(
+    a.trazabilidad.substring(a.trazabilidad.indexOf("-") + 1)
+  );
+  const digitsB = parseInt(
+    b.trazabilidad.substring(b.trazabilidad.indexOf("-") + 1)
+  );
+
+  return digitsA - digitsB;
+};
 const today = dayjs(new Date(),'YYYY-DD-MM').format('YYYY-MM-DD')
 
 export {
@@ -153,5 +201,7 @@ export {
   convertDate,
   convertGroupDates,
   today,
-  getDataForm
+  getDataForm,
+  trimCustumize,
+  sortByTraz
 };

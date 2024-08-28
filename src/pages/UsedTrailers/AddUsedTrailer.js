@@ -30,7 +30,6 @@ const handleSave = async (event) => {
   const data = getDataFormValid(event, form, ".form-control");
   if (!isEmptyObjet(data)) {
     template.modal.saving()
-
     const inputs = document.querySelectorAll(".form-check-input");
     const inputsCheck = [];
     inputs.forEach((item) => {

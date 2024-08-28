@@ -18,6 +18,8 @@ import {
 import { UsedAttributes } from "@backend/UsedTrailers";
 import { SubTitle } from "@components/Titles";
 import MyCustumeModal from "@components/MyCustumeModal";
+import { trimCustumize } from "../utils/Tools";
+
 class FormUsedTrailer {
   constructor() {
     this.modal = new MyCustumeModal(document.querySelector("#modal"));
@@ -1013,22 +1015,10 @@ class FormUsedTrailer {
     });
   }
   settings() {
-    this.trimCustumize();
+    trimCustumize();
     this.nullValue()
   }
-  trimCustumize() {
-    const inputs = document.querySelectorAll(".custumeFormatt");
-    inputs.forEach((input) => {
-      input.addEventListener("keydown", (event) => {
-        if (event.key === " ") {
-          event.preventDefault();
-        }
-      });
-      input.addEventListener("input", (event) => {
-        event.target.value = event.target.value.toUpperCase();
-      });
-    });
-  }
+
   nullValue() {
     const acople = document.querySelector('#acoples_med');
     acople.addEventListener('change',() => {

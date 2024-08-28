@@ -1,63 +1,45 @@
 import { MainTitle } from "@components/Titles";
-import IconTitleUsedTrailers from "@images/price-tag.png";
+import IconTitleCamion from "@images/semi-camion.png";
+
 import { inputComponent, buttonComponent } from "@components/Form";
 import Table from "@components/Table";
-import {DataUsedTrailers} from "@backend/UsedTrailers";
+import {DataCamiones} from "@backend/Camion";
+import { sortByTraz } from "../../utils/Tools";
 
-let TableUsedTrailers;
+let TableCamion;
 let previousButton;
 let nextButton;
 let filterButton;
+
 const formFilter = () => {
   const view = `
     <form class="row g-2 mt-3">
       ${inputComponent({
         type: "text",
         className: "filter",
-        placeholder: "Carrozado",
-        sizes: 'sm',
-        id: "carrozado",
+        placeholder: "Razón social",
+        id: "razon_social",
       })}
       ${inputComponent({
-        col: "2",
         type: "text",
         className: "filter",
-        placeholder: "Marca",
-        sizes: 'sm',
-        id: "marca",
+        placeholder: "Modelo",
+        id: "modelo",
       })}
       ${inputComponent({
         col: "2",
         type: "text",
         className: "filter",
         placeholder: "Trazabilidad",
-        sizes: 'sm',
         id: "trazabilidad",
       })}
-      ${inputComponent({
-        col: "3",
-        type: "text",
-        className: "filter",
-        placeholder: "VIN",
-        sizes: 'sm',
-        id: "vin",
-      })}
-      ${inputComponent({
-        col: "2",
-        type: "text",
-        className: "filter",
-        placeholder: "Dominio",
-        sizes: 'sm',
-        id: "dominio",
-      })} 
       ${inputComponent({
         col: "2",
         type: "text",
         className: "filter",
         placeholder: "Status",
-        sizes: 'sm',
         id: "status",
-      })}      
+      })}   
       ${buttonComponent({
         col: "auto",
         mdCol: "auto",
@@ -65,7 +47,6 @@ const formFilter = () => {
         type: "button",
         color: "primary",
         title: "Filtrar",
-        sizes: 'sm',
         id: "filter",
       })}
       ${buttonComponent({
@@ -75,48 +56,52 @@ const formFilter = () => {
         type: "button",
         color: "success",
         title: "Agregar",
-        sizes: 'sm',
-        id: 'add'
+        id: "add",
       })}
     </form>`;
   return view;
 };
 const columns = {
-  tipo: "Tipo",
-  carrozado: "Carrozado",
-  marca: "Marca",
   trazabilidad: "Trazabilidad",
+  marca: "Marca",
+  modelo: "Modelo",
   vin: "VIN",
-  dominio: 'Dominio',
-  status: "Status",
+  dominio: 'Dominio'
 };
-const UsedTrailers = async (content) => {
-  let data = await DataUsedTrailers.getDataInJSON();
-  TableUsedTrailers = new Table({ columns: columns, data: data, attrId: 'trazabilidad' });
+const Camiones = async (content) => {
+  let data = await DataCamiones.getDataInJSON();
+    data = data.sort(sortByTraz)
+    data = data.reverse()
+  console.log(data)
+  TableCamion = new Table({
+    columns: columns,
+    data: data,
+    attrId: "trazabilidad",
+  });
   const view = `
-    ${MainTitle("Listado de Unidades Usadas", IconTitleUsedTrailers)}
+    ${MainTitle("Listado de Camiones", IconTitleCamion)}
     ${formFilter()}
-    ${TableUsedTrailers.createTable()}
+    ${TableCamion.createTable()}
     `;
   content.innerHTML = view;
   previousButton = document.querySelector("#previous");
   nextButton = document.querySelector("#next");
   filterButton = document.querySelector("#filter");
   const addButton = document.querySelector("#add");
-  activeListenerRows()
+  activeListenerRows();
 
   previousButton.addEventListener("click", handlePreviousButton);
   nextButton.addEventListener("click", handleNextButton);
   filterButton.addEventListener("click", handleFilterButton);
-  addButton.addEventListener("click", () => (location.hash = "/add-used-trailer"));
+  addButton.addEventListener("click", () => (location.hash = "/add-camion"));
 };
 const handlePreviousButton = () => {
-  TableUsedTrailers.previousButton();
-  activeListenerRows()
+  TableCamion.previousButton();
+  activeListenerRows();
 };
 const handleNextButton = () => {
-  TableUsedTrailers.nextButton();
-  activeListenerRows()
+  TableCamion.nextButton();
+  activeListenerRows();
 };
 const handleFilterButton = () => {
   const valuesFilter = {};
@@ -124,14 +109,17 @@ const handleFilterButton = () => {
   itemsFilter.forEach((item) => {
     valuesFilter[item.id] = item.value;
   });
-  TableUsedTrailers.filterButton(valuesFilter);
-  activeListenerRows()
+  TableCamion.filterButton(valuesFilter);
+  activeListenerRows();
 };
 const handleEditData = (event) => {
-  const id = event.target.parentNode.id
-  location.hash = `/used-trailer=${id}/`
-}
+  const id = event.target.parentNode.id;
+  location.hash = `/trailer=${id}/`;
+};
+
 const activeListenerRows = () => {
-  document.querySelectorAll(".row-table").forEach((row) => row.addEventListener("click", handleEditData));
-}
-export default UsedTrailers;
+  document
+    .querySelectorAll(".row-table")
+    .forEach((row) => row.addEventListener("click", handleEditData));
+};
+export default Camiones;

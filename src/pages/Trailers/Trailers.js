@@ -1,11 +1,10 @@
 import { MainTitle } from "@components/Titles";
 import IconTitleTrailers from "@images/new.png";
-import { inputComponent, buttonComponent } from "@components/Form";
+import { inputComponent, buttonComponent, selectComponent } from "@components/Form";
 import Table from "@components/Table";
-import {DataTrailers} from "@backend/Trailers";
+import {DataTrailers, Attributes} from "@backend/Trailers";
 import DataGestoria from "@backend/Gestoria";
-import {DataUsedTrailers} from "@backend/UsedTrailers";
-import { DataStatus } from "../../backend/Status";
+import { sortByTraz } from "../../utils/Tools";
 
 let TableTrailers;
 let previousButton;
@@ -15,9 +14,7 @@ let filterButton;
 const Data = async () => {
   const dataTech = await DataTrailers.getDataInJSON();
   const dataGestoria = await DataGestoria.getCompleteData();
-  //const status = await DataStatus.getStatus()
   let data = dataJoin(dataTech, dataGestoria, 'trazabilidad', 'trazabilidad');
-  //dataJoin(data, status,'trazabilidad', 'trazabilidad')
   data = data.map((item) => {
     item.modelo = item.tipo + " " + item.carrozado;
     return item
@@ -35,35 +32,66 @@ const dataJoin = (data1, data2, att1, att2) => {
   })
   return data1
 }
-const formFilter = () => {
+const formFilter = async () => {
+  const attributes = await Attributes.getDataInJSON();
   const view = `
-    <form class="row g-2 mt-3">
+    <form class="row g-1 mt-3">
       ${inputComponent({
         type: "text",
         className: "filter",
         placeholder: "Razón social",
         id: "razon_social",
+        sizes: 'sm'
       })}
       ${inputComponent({
         type: "text",
         className: "filter",
         placeholder: "Modelo",
         id: "modelo",
+        sizes: 'sm'
       })}
       ${inputComponent({
-        col: "2",
+        col: "",
         type: "text",
         className: "filter",
         placeholder: "Trazabilidad",
         id: "trazabilidad",
+        sizes: 'sm'
       })}
       ${inputComponent({
-        col: "2",
-        type: "text",
+        col: "1",
+        mdCol: "1",
+        xlCol: "1",
+        type: "number",
         className: "filter",
-        placeholder: "Status",
+        placeholder: "Largo",
+        id: "largo",
+        sizes: 'sm'
+      })}
+      ${selectComponent({
+        col: "auto",
+        mdCol: "auto",
+        xlCol: "auto",
+        id: "color_carrozado",
+        name: "color_carrozado",
+        placeholder: "Color",
+        data: attributes,
+        textNode: "color",
+        className: "filter",
+        sizes: 'sm'
+      })}
+      ${selectComponent({
+        col: "auto",
+        mdCol: "auto",
+        xlCol: "auto",
         id: "status",
-      })}   
+        name: "status",
+        placeholder: "Status",
+        data: attributes,
+        textNode: "status",
+        className: "filter",
+        sizes: 'sm'
+      })}
       ${buttonComponent({
         col: "auto",
         mdCol: "auto",
@@ -72,6 +100,7 @@ const formFilter = () => {
         color: "primary",
         title: "Filtrar",
         id: "filter",
+        sizes: 'sm'
       })}
       ${buttonComponent({
         col: "auto",
@@ -80,7 +109,8 @@ const formFilter = () => {
         type: "button",
         color: "success",
         title: "Agregar",
-        id: 'add'
+        id: 'add',
+        sizes: 'sm'
       })}
     </form>`;
   return view;
@@ -90,6 +120,8 @@ const columns = {
   razon_social: "Razón social",
   trazabilidad: "Trazabilidad",
   modelo: 'Modelo',
+  largo: 'Largo',
+  color_carrozado: 'Color',
   status: "Status",
 };
 const Trailers = async (content) => {
@@ -97,7 +129,7 @@ const Trailers = async (content) => {
   TableTrailers = new Table({ columns: columns, data: data, attrId: 'trazabilidad'});
   const view = `
     ${MainTitle("Listado de Unidades 0 KM", IconTitleTrailers)}
-    ${formFilter()}
+    ${await formFilter()}
     ${TableTrailers.createTable()}
     `;
   content.innerHTML = view;
@@ -132,28 +164,6 @@ const handleFilterButton = () => {
 const handleEditData = (event) => {
   const id = event.target.parentNode.id
   location.hash = `/trailer=${id}/`
-}
-const sortByTraz = (a,b) => {
-  // Obtener los dos últimos dígitos
-  const lastTwoA = a.trazabilidad.slice(-2);
-  const lastTwoB = b.trazabilidad.slice(-2);
-  // Comparar por los dos últimos dígitos
-  if (lastTwoA !== lastTwoB) {
-      return lastTwoA - lastTwoB;
-  }
-  // Obtener el primer dígito después del "."
-  const firstDigitA = parseInt(a.trazabilidad.substring(a.trazabilidad.indexOf('.') + 1, a.trazabilidad.indexOf('-')));
-  const firstDigitB = parseInt(b.trazabilidad.substring(b.trazabilidad.indexOf('.') + 1, b.trazabilidad.indexOf('-')));
-  // Comparar por el primer dígito
-  if (firstDigitA !== firstDigitB) {
-      return firstDigitA - firstDigitB;
-  }
-   // Comparar por los 4 dígitos después del "."
-  const digitsA = parseInt(a.trazabilidad.substring(a.trazabilidad.indexOf('-') + 1));
-  const digitsB = parseInt(b.trazabilidad.substring(b.trazabilidad.indexOf('-') + 1));
-  
-  return digitsA - digitsB;
-  
 }
 const activeListenerRows = () => {
   document.querySelectorAll(".row-table").forEach((row) => row.addEventListener("click", handleEditData));
