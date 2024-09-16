@@ -1130,7 +1130,7 @@ const datosUnidadUsada = (data) => {
   }</strong>, Año: <strong>${data.usada.anno}</strong>, Chasis Nº: <strong>${
     data.usada.vin
   }</strong>, Color: <strong>${data.usada.color_carrozado}${
-    data.usada.color_franja ? ` y ${data.usada.color_frnaja}` : ""
+    data.usada.color_franja ? ` y ${data.usada.color_franja}` : ""
   }</strong>, Dominio: <strong>${
     data.usada.dominio
   }</strong>, tasado en <strong>${data.usada.tasacion}</strong> IVA incluido.`;

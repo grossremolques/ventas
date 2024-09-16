@@ -1,4 +1,5 @@
 import { getColumnByKey, convertGroupDates } from "../utils/Tools";
+import dayjs from "dayjs";
 class ApiServices {
   constructor(props) {
     this.nameSheet = props.nameSheet;
@@ -41,6 +42,8 @@ class ApiServices {
     }
   }
   async postData(data) {
+    const today = dayjs(new Date(), "YYYY-DD-MM");
+    data.fecha = today.format("DD/MM/YYYY");
     convertGroupDates(data,'en-es')
     const headers = await this.getHeaders();
     const newData = this.convertData(data, headers);

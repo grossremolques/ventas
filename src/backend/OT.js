@@ -1,8 +1,8 @@
 import ApiServices from "./ApiServices";
 import { loadInputsById, isEmptyObjet } from "../utils/Tools";
-const SheetId = process.env.SHEETID_CLIENT;
-class Clients extends ApiServices {
-  async sorted() {
+const SheetId = process.env.SHEETID_OT;
+class OT extends ApiServices {
+  /* async sorted() {
     try {
       const response = await this.getDataInJSON();
       const data = response.sort((a, b) => Number(a.id) - Number(b.id));
@@ -51,11 +51,16 @@ class Clients extends ApiServices {
         console.log(e);
       }
     });
-  }
+  } */
 }
-const DataClients = new Clients({
+const DataOT = new OT({
   sheetId: SheetId,
   nameSheet: "Registro",
   rowHead: 1,
 });
-export default DataClients;
+const Attributes = new OT({
+  sheetId: SheetId,
+  nameSheet: "Atributos",
+  rowHead: 1,
+});
+export {DataOT, Attributes};

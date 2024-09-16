@@ -29,11 +29,22 @@ class Camion extends ApiServices {
       console.log(e);
     }
   }
+  async createRegularId() {
+    try {
+      const response = await this.getDataInJSON();
+      const IDs = response.map(item => Number(item.id))
+      console.log(IDs.filter(item => typeof item == 'string'))
+      const lastId = Math.max(...IDs);
+      console.log(lastId)
+      return lastId + 1
+    } catch (e) {
+      console.log(e);
+    }
+  }
   async postCustomized(data) {
     try {
-      const today = dayjs(new Date(), "YYYY-DD-MM");
       data.trazabilidad = await this.createId();
-      data.fecha = today.format("DD/MM/YYYY");
+      data.id = await this.createRegularId()
       try {
         return {
           result: await this.postData(data),
@@ -56,32 +67,14 @@ class Camion extends ApiServices {
       console.error(e);
     }
   }
-  async getClient(id) {
+  async getCamion(id) {
     try {
       const response = await this.getDataInJSON();
-      const client = response.find((item) => item.id === id);
-      return client;
+      const camion = response.find((item) => item.trazabilidad === id);
+      return camion;
     } catch (e) {
       console.error(e);
     }
-  }
-  async handleFindClient() {
-    const input = document.querySelector("#id_cliente");
-    const formSell = document.querySelector("#formSell");
-    input.addEventListener("change", async () => {
-      try {
-        const client = await this.getClient(input.value);
-        if (!client || isEmptyObjet(client)) {
-          window.alert("🚨🚨 Cliente no encontrado 😟");
-          document.querySelector("#cuit").value = "";
-          document.querySelector("#razon_social").value = "";
-        } else {
-          loadInputsById(client, formSell);
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    });
   }
 }
 const DataCamiones = new Camion({
@@ -94,4 +87,9 @@ const Attributes = new Camion({
   nameSheet: "Atributos",
   rowHead: 1,
 });
-export { DataCamiones, Attributes };
+const Dimensiones = new Camion({
+  sheetId: SheetId,
+  nameSheet: "Dimensiones",
+  rowHead: 1,
+});
+export { DataCamiones, Attributes, Dimensiones };

@@ -804,7 +804,7 @@ class FormUsedTrailer {
         id: "id_cliente",
         name: "id_cliente",
         required: true,
-        nameLabel: "Cod. Cliente",
+        nameLabel: "Cliente",
       })}
       ${inputComponent({
         col: "12",

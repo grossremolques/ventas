@@ -182,6 +182,7 @@ const sortByTraz = (a, b) => {
 
   return digitsA - digitsB;
 };
+
 const today = dayjs(new Date(),'YYYY-DD-MM').format('YYYY-MM-DD')
 
 export {

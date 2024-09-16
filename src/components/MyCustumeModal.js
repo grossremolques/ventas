@@ -7,6 +7,7 @@ class MyCustumeModal extends Modal {
   }
   create(props) {
     this.deleteButtonAction();
+    this.deleteButtonOther();
     const buttons = document.querySelectorAll('[data-bs-dismiss="modal"]');
     buttons.forEach((elem) => elem.removeAttribute("disabled", ""));
     document.querySelector("#modalLabel").innerHTML = props.title;
@@ -18,6 +19,18 @@ class MyCustumeModal extends Modal {
     const btnAction = document.querySelector("#btnAction");
     const btn = button(props);
     btnAction.innerHTML = btn;
+  }
+  addButtonOther(props) {
+    const btnAction = document.querySelector("#btnOther");
+    const btn = button(props);
+    btnAction.innerHTML = btn;
+  }
+  deleteButtonOther() {
+    const btnAction = document.querySelector("#btnOther");
+    const button = btnAction.querySelector("button");
+    if (button) {
+      btnAction.removeChild(button);
+    }
   }
   deleteButtonAction() {
     const btnAction = document.querySelector("#btnAction");

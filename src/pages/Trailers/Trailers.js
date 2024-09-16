@@ -14,6 +14,7 @@ let filterButton;
 const Data = async () => {
   const dataTech = await DataTrailers.getDataInJSON();
   const dataGestoria = await DataGestoria.getCompleteData();
+  console.log(dataGestoria)
   let data = dataJoin(dataTech, dataGestoria, 'trazabilidad', 'trazabilidad');
   data = data.map((item) => {
     item.modelo = item.tipo + " " + item.carrozado;

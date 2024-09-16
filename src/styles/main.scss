@@ -275,4 +275,10 @@ footer.home {
     color: white;
   }
 }
+.contenedor-home {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
 

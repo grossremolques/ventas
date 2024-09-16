@@ -1,9 +1,9 @@
 import { MainTitle } from "@components/Titles";
-import FormCamion from "../../templates/Camion";
+import FormCamion from "@templates/Camion";
 import {buttonComponent} from "@components/Form";
 import { getDataFormValid, isEmptyObjet} from "@utils/Tools";
 import DataEmployees from "@backend/Employees";
-import { DataCamiones } from "../../backend/Camion";
+import { DataCamiones } from "@backend/Camion";
 const template = new FormCamion()
 const AddCamion = async (content) => {
     const view = `
@@ -24,8 +24,9 @@ const AddCamion = async (content) => {
       `;
     content.innerHTML = view;
     template.setting()
+    /*
     const saveButton = document.querySelector("#saveButton");
-    saveButton.addEventListener("click", handleSave);
+    saveButton.addEventListener("click", handleSave); */
   };
   const handleSave = async (event) => {
     const form = document.querySelector("#formCamion");

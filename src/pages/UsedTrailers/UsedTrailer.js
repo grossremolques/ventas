@@ -296,6 +296,7 @@ const handleInforme = async (event) => {
     }
     else {
       const data = await DataUsedTrailers.getUsedTrailer(ID);
+      console.log(data)
       if (data.tomado_en_venta) {
         const dataGestoria = await DataGestoria.getTrailer(
           data.tomado_en_venta

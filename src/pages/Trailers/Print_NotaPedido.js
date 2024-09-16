@@ -20,6 +20,7 @@ const Print_NotaPedido = async (content) => {
   const priceOnLetter = currency.numInLetters(price)
   myData['today'] = `${day} de ${month} de ${year}`
   myData['priceLetter'] = priceOnLetter
+  console.log(myData)
   const html = await htmlNotaPedido(myData)
   const view = `
     <div class="text-center mb-3">
