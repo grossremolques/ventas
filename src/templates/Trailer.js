@@ -889,12 +889,11 @@ class FormTrailer {
       </div>`;
     return view;
   }
-  async formSell(isCompleteUsedTrailer) {
+  async formSell() {
     const Sellers = await DataEmployees.getSellers()
     const usedAttributes = await UsedAttributes.getDataInJSON();
-    const usedTrailers = isCompleteUsedTrailer
-      ? await DataUsedTrailers.getAllTrailers()
-      : await DataUsedTrailers.getAvailableTrailers();
+    const usedTrailers = await DataUsedTrailers.getAllTrailers();
+    console.log(usedTrailers)
     const view = `
     <form class="row needs-validation g-1 mt-3" novalidate id="formSell">
       ${inputComponent({
@@ -1003,6 +1002,7 @@ class FormTrailer {
         data: usedTrailers,
         textNode: "nombre",
         value: "trazabilidad",
+        disabled: ['tomado_en_venta', '']
       })}
       ${inputComponent({
         col: "12",
@@ -1134,7 +1134,7 @@ class FormTrailer {
     closeButton.removeEventListener("click", this.goToTrailers);
     this.modal.create({
       title: "💲 Datos de venta",
-      content: await this.formSell(isEdit),
+      content: await this.formSell(),
     });
     this.modal.addButtonAction({
       title: "Guardar",

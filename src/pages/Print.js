@@ -10,13 +10,13 @@ const Print = (content) => {
   const month = meses[dayjs().month()]//;
   const day = dayjs().$D
   const year = dayjs().$y
-  
 
   const hash = window.location.hash;
   const code = hash.slice(hash.indexOf("?") + 1);
   let params = new URLSearchParams(code);
-  let data = params.get("data");
-  const myData = JSON.parse(decodeURIComponent(data));
+  const data = params.get("data");
+  const safeData = data.replace(/%/g, '%25')
+  const myData = JSON.parse(decodeURIComponent(safeData));
   const currency = new Currency()
   const price = currency.convertirEnNumero( myData.valor_venta_efectiva)
   const priceOnLetter = currency.numInLetters(price)

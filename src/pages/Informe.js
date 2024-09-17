@@ -3,8 +3,9 @@ const Informe = (content) => {
   const hash = window.location.hash;
   const code = hash.slice(hash.indexOf("?") + 1);
   let params = new URLSearchParams(code);
-  let data = params.get("data");
-  const myData = JSON.parse(decodeURIComponent(data));
+  const data = params.get("data");
+  const safeData = data.replace(/%/g, '%25')
+  const myData = JSON.parse(decodeURIComponent(safeData));
   const html = html_informe(myData)
   const view = `
     <div class="text-center mb-3">

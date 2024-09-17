@@ -15,7 +15,6 @@ const createPDF = (html) => {
   });
 };
 const htmlBoleto = (data) => {
-  console.log(data)
   const template = `
     <div class="contentPDF">
     ${header()}

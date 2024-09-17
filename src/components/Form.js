@@ -16,7 +16,6 @@ const input = (props) => {
         ${props.disabled ? `disabled` : ""}
         ${props.readonly === true ? "readonly" : ""}>
     `;
-  //autocomplete="off"
   return view;
 };
 const select = (props) => {
@@ -27,27 +26,10 @@ const select = (props) => {
 const options = (props) => {
   const view = `
     <option value="" select>${props.placeholder ? props.placeholder : ""} </option>
-    ${
-      props.data
-        ? `
-      ${props.data
-        .map(
-          (item) => `
+    ${props.data? `${props.data.map((item) => `
       ${
-        item[props.textNode]
-          ? `<option value="${
-              item[props.value] ? item[props.value] : item[props.textNode]
-            }">${item[props.textNode]}</option>`
-          : ""
-      }
-          
-        `
-        )
-        .join("")}
-      `
-        : ""
-    }
-    `;
+        item[props.textNode] ? `<option value="${ item[props.value] ? item[props.value] : item[props.textNode]}" ${props.disabled ? item[props.disabled[0]] != props.disabled[1] ? 'disabled':'': ''}>${item[props.textNode]}</option>`: ""}`).join("")}`: ""
+    }`;
   return view;
 };
 const dataList = (props) => {
@@ -55,7 +37,7 @@ const dataList = (props) => {
     ${input(props)}
     <datalist id="${props.list}">
      ${options(props)}
-    </datalist>    `;
+    </datalist>`;
   return view;
 };
 const label = (props) => {

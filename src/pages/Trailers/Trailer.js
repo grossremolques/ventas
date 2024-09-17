@@ -76,7 +76,7 @@ const Trailer = async (content) => {
           });
         }
         else {
-          template.openGestoria(updateGestoria, true, ID);
+          template.openGestoria(updateGestoria,true, ID);
         }
       }
     });
@@ -210,7 +210,7 @@ const updateGestoria = async (event) => {
           await DataUsedTrailers.updateData({
             colName: "trazabilidad",
             id: data.tomada_en_venta,
-            values: { tomado_en_venta: ID },///en numero
+            values: { tomado_en_venta: Number(ID.replace(".","").replace('-',"")) },///en numero
           });
         }
         
