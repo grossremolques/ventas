@@ -14,7 +14,6 @@ let filterButton;
 const Data = async () => {
   const dataTech = await DataTrailers.getDataInJSON();
   const dataGestoria = await DataGestoria.getCompleteData();
-  console.log(dataGestoria)
   let data = dataJoin(dataTech, dataGestoria, 'trazabilidad', 'trazabilidad');
   data = data.map((item) => {
     item.modelo = item.tipo + " " + item.carrozado;
@@ -67,6 +66,16 @@ const formFilter = async () => {
         className: "filter",
         placeholder: "Largo",
         id: "largo",
+        sizes: 'sm'
+      })}
+      ${inputComponent({
+        col: "1",
+        mdCol: "1",
+        xlCol: "1",
+        type: "number",
+        className: "filter",
+        placeholder: "Alt. Baranda",
+        id: "altura_baranda",
         sizes: 'sm'
       })}
       ${selectComponent({
@@ -122,6 +131,7 @@ const columns = {
   trazabilidad: "Trazabilidad",
   modelo: 'Modelo',
   largo: 'Largo',
+  altura_baranda: 'Alt. Baranda',
   color_carrozado: 'Color',
   status: "Status",
 };
