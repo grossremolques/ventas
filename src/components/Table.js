@@ -119,12 +119,56 @@ class Table {
     }
     this.isFiltered = true;
     this.insertRows();
+    this.interfaceInfoFilter(valuesFilter);
   }
   normalizeString(str) {
-    return str
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase();
+    try {
+      const newStr = str === undefined ? '' : str
+        return newStr
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
+    } catch (e) {
+      console.log(str, e);
+    }
+  }
+  interfaceInfoFilter(valuesFilter) {
+    const colors = [
+      "primary",
+      "secondary",
+      "success",
+      "danger",
+      "warning",
+      "info",
+      "light",
+    ];
+    const applyFilters = document.getElementById("info-filtersApply");
+    const arrFilter = Object.entries(valuesFilter);
+    const viewFilter = arrFilter
+      .map((item) => {
+        const getRandomColor = (max) => {
+          return Math.floor(Math.random() * max);
+        };
+        if (item[1] != "") {
+          return `<small>${
+            item[0][0].toLocaleUpperCase() +
+            item[0].slice(1).replaceAll("_", " ")
+          }: </small><span class="badge text-bg-${
+            colors[getRandomColor(colors.length)]
+          }">${item[1]}</span> `;
+        }
+      })
+      .join("");
+    applyFilters.innerHTML = viewFilter;
+    const totalFilter = document.getElementById("totalFilter");
+    if (totalFilter) {
+      totalFilter.textContent = `Total: ${this.dataFilter.length}`;
+    } else {
+      applyFilters.parentElement.insertAdjacentHTML(
+        "beforeend",
+        `<span class="badge text-bg-dark float-end" id="totalFilter">Total: ${this.dataFilter.length}</span>`
+      );
+    }
   }
 }
 export default Table;

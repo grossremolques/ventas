@@ -96,6 +96,7 @@ const UsedTrailers = async (content) => {
   const view = `
     ${MainTitle("Listado de Unidades Usadas", IconTitleUsedTrailers)}
     ${formFilter()}
+    <div class="mt-3">Filtros aplicados: <span id="info-filtersApply">Ninguno</span></div>
     ${TableUsedTrailers.createTable()}
     `;
   content.innerHTML = view;

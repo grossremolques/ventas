@@ -19,7 +19,7 @@ const Data = async () => {
     item.modelo = item.tipo + " " + item.carrozado;
     return item
   })
-  data = data.sort(sortByTraz);
+  //data = data.sort(sortByTraz);
   return data.reverse()
 }
 const dataJoin = (data1, data2, att1, att2) => {
@@ -141,6 +141,7 @@ const Trailers = async (content) => {
   const view = `
     ${MainTitle("Listado de Unidades 0 KM", IconTitleTrailers)}
     ${await formFilter()}
+    <div class="mt-3">Filtros aplicados: <span id="info-filtersApply">Ninguno</span></div>
     ${TableTrailers.createTable()}
     `;
   content.innerHTML = view;

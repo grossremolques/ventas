@@ -88,6 +88,7 @@ const Camiones = async (content) => {
   const view = `
     ${MainTitle("Listado de Camiones", IconTitleCamion)}
     ${formFilter()}
+    <div class="mt-3">Filtros aplicados: <span id="info-filtersApply">Ninguno</span></div>
     ${TableCamion.createTable()}
     `;
   content.innerHTML = view;

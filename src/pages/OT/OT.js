@@ -96,6 +96,7 @@ const OT = async (content) => {
     const view = `
     ${MainTitle("Ordenes de repuestos y reparaciones", IconTitleClients)}
     ${await formFilter()}
+    <div class="mt-3">Filtros aplicados: <span id="info-filtersApply">Ninguno</span></div>
     ${TableOT.createTable()}
     `;
     content.innerHTML = view;

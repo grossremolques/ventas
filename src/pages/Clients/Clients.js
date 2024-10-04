@@ -60,6 +60,7 @@ const Clients = async (content) => {
     const view = `
     ${MainTitle("Listado de Clientes", IconTitleClients)}
     ${formFilter()}
+    <div class="mt-3">Filtros aplicados: <span id="info-filtersApply">Ninguno</span></div>
     ${TableClients.createTable()}
     `;
     content.innerHTML = view;
