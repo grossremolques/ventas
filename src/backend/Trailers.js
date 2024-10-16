@@ -44,6 +44,9 @@ class Trailers extends ApiServices {
       case "Semirremolque":
         num = "3";
         break;
+      case "Implemento agricola":
+        num = "8";
+        break
     }
     try {
       const response = await this.getDataInJSON();

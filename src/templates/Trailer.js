@@ -311,6 +311,18 @@ class FormTrailer {
                 })}
               </div>
             </div>
+            ${selectComponent({
+              col: "12",
+              mdCol:'auto',
+              xlCol: "auto",
+              sizes: "sm",
+              id: "tipo_cabezal",
+              name: "tipo_cabezal",
+              required: true,
+              nameLabel: "Tipo cabezal",
+              data: attributes,
+              textNode: "tipo_cabezal",
+            })}
           </div>
         </div>
         ${await this.colors()}
@@ -782,6 +794,7 @@ class FormTrailer {
       const value = event.target.value;
       this.defaultUI({ value: value, new: true });
     });
+
   }
   async defaultUI(props) {
     try {
@@ -893,7 +906,6 @@ class FormTrailer {
     const Sellers = await DataEmployees.getSellers()
     const usedAttributes = await UsedAttributes.getDataInJSON();
     const usedTrailers = await DataUsedTrailers.getAllTrailers();
-    console.log(usedTrailers)
     const view = `
     <form class="row needs-validation g-1 mt-3" novalidate id="formSell">
       ${inputComponent({
@@ -1160,7 +1172,6 @@ class FormTrailer {
     }
   }
   modalWithBTNBoleto(id, isPresupuesto) {
-    console.log(isPresupuesto)
     this.modal.create({
       title: "✅ 💲 Guardado datos de venta",
       content: `

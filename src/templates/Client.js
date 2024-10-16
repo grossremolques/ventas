@@ -153,7 +153,6 @@ class FormClient {
           sizes: "sm",
           id: "email",
           name: "email",
-          required: true,
           nameLabel: "Email",
         })}
     </form>

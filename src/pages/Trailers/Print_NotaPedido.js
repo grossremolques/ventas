@@ -23,6 +23,7 @@ const Print_NotaPedido = async (content) => {
   myData['priceLetter'] = priceOnLetter
   console.log(myData)
   const html = await htmlNotaPedido(myData)
+  
   const view = `
     <div class="text-center mb-3">
       <button type="button" class="btn btn-primary" id="back">Volver</button>

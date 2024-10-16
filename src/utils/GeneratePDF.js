@@ -3,16 +3,22 @@ import logoGross from "@images/logo_gross.png";
 import logoISO from "@images/logo_iso9001.png";
 import { Modelos } from "../backend/Trailers";
 const createPDF = (html) => {
-  const frame = document.querySelector("#frame");
-  const doc = new jsPDF("p", "pt", "legal");
-  const margin = 30;
-  doc.html(html, {
-    x: margin,
-    y: margin - 10,
-    callback: function (doc) {
-      frame.src = doc.output("bloburl");
-    },
-  });
+  try {
+const frame = document.querySelector("#frame");
+const doc = new jsPDF("p", "pt", "legal");
+const margin = 30;
+doc.html(html, {
+  x: margin,
+  y: margin - 10,
+  callback: function (doc) {
+    frame.src = doc.output("bloburl");
+  },
+});
+  }
+  catch(e){
+    console.log(e)
+  }
+  
 };
 const htmlBoleto = (data) => {
   const template = `
@@ -41,7 +47,7 @@ const htmlBoleto = (data) => {
             data.forma_pago_1
           }</strong>. <em>por medio de</em>: <strong>${data.medio_pago}</strong>
           ${
-            data.forma_pago_add != 'N/A'
+            data.forma_pago_add != "N/A"
               ? `<br><em>Forma de pago</em>: <strong>${data.forma_pago_add}</strong>. <em>por medio de</em>: <strong>${data.medio_pago_add}</strong>`
               : ""
           }
@@ -572,7 +578,9 @@ const html_informe = (data) => {
                 <td class="cell-title">Largo</td>
                 <td>${data.largo}</td>
                 <td class="cell-title">Color</td>
-                <td>${data.color_carrozado}${data.color_franja != "N/A" ? ` / ${data.color_franja}` : ""}</td>
+                <td>${data.color_carrozado}${
+    data.color_franja != "N/A" ? ` / ${data.color_franja}` : ""
+  }</td>
               </tr>
               <tr class="brd-b">
                 <td class="cell-title brd-b">Tipo</td>
@@ -635,7 +643,9 @@ const html_informe = (data) => {
               </tr>
               <tr>
                 <td class="cell-content-flex">Guardabarros</td>
-                <td>Tipo: ${data.guardabarros_mat} | Cant.: ${data.guardabarros_med}</td>
+                <td>Tipo: ${data.guardabarros_mat} | Cant.: ${
+    data.guardabarros_med
+  }</td>
               </tr>
               <tr>
                 <td>Guardafangos</td>
@@ -648,11 +658,15 @@ const html_informe = (data) => {
               
               <tr>
                 <td class="cell-content-flex">Luces laterales<span class="table-span"></span></td>
-                <td>Tipo: ${data.luces_lat_tipo} | Cant.: ${data.luces_lat_cant}</td>
+                <td>Tipo: ${data.luces_lat_tipo} | Cant.: ${
+    data.luces_lat_cant
+  }</td>
               </tr>
               <tr>
                 <td class="cell-content-flex">Luces trasera</td>
-                <td>Tipo: ${data.luces_trs_tipo} | Cant.: ${data.luces_trs_cant}</td>
+                <td>Tipo: ${data.luces_trs_tipo} | Cant.: ${
+    data.luces_trs_cant
+  }</td>
               </tr>
               <tr>
                 <td class="cell-content-flex">Tensión</td>
@@ -735,7 +749,11 @@ const footerNotaPedido = (firma) => {
       <div class="box size_2"></div>
       <div class="box size_1">Firma Autorizante</div>
       <div class="box size_2 box-firma">
-        ${firma ? '<img class="firma-julieta" src="assets/images/firma_julieta.png" alt="">':''}
+        ${
+          firma
+            ? '<img class="firma-julieta" src="assets/images/firma_julieta.png" alt="">'
+            : ""
+        }
       </div>
     </div>
     <div class="contenedor">
@@ -793,7 +811,23 @@ const htmlNotaPedido = async (data) => {
           Señor Gerente y/o Representante legal de <strong>SUCESORES DE EMILIO GROSS S.R.L., C.U.I.T. N° 33-71037240-9</strong>, solicito a usted se sirva considerar mi propuesta de compra por la unidad citada a continuación, de fabricación nacional, tomando como base las condiciones de venta insertadas en la presente nota de pedido: 
         </p>
         <p class="paragraph regular-font">
-          ${initial(data)}${dimensions(data)}${doors(data)}${data.puerta_trasera != "N/A" ? backDoor(data) : ""}${batea(data)}${getTipoDestape(data)}${seguros(data)}${boquillas(data)}${floor(data)}${kitAcople(data)}${centroEje(data)}${cajonHerramientas(data)}${typeSider(data)}; chasis color AZUL GROSS, carrozado color <strong>${data.color_carrozado.toLocaleUpperCase()}</strong>${franja(data)}
+        ${
+          data.carrozado === "Rural porta cabezal de 45 pies"
+            ? acopladoRural(data)
+            : `
+          ${initial(data)}${dimensions(data)}${doors(data)}${
+                data.puerta_trasera != "N/A" ? backDoor(data) : ""
+              }${batea(data)}${getTipoDestape(data)}${seguros(data)}${boquillas(
+                data
+              )}${floor(data)}${kitAcople(data)}${centroEje(
+                data
+              )}${cajonHerramientas(data)}${typeSider(
+                data
+              )}; chasis color AZUL GROSS, carrozado color <strong>${data.color_carrozado.toLocaleUpperCase()}</strong>${franja(
+                data
+              )}
+          `
+        }
         </p>
         ${await adicionales(data)}
         ${comments(data)}
@@ -818,7 +852,7 @@ const htmlNotaPedido = async (data) => {
             data.forma_pago_1
           }</strong>. <em>por medio de</em>: <strong>${data.medio_pago}</strong>
           ${
-            data.forma_pago_add != 'N/A'
+            data.forma_pago_add != "N/A"
               ? `<br><em>Forma de pago</em>: <strong>${data.forma_pago_add}</strong>. <em>por medio de</em>: <strong>${data.medio_pago_add}</strong>`
               : ""
           }
@@ -876,8 +910,14 @@ const adicionales = async (data) => {
 };
 const adicionalesDefault = (data) => {
   return {
-    boq_oculta: [`${data.boq_oculta} boquillas oculas`, data.boq_oculta != '0' ? true: false],
-    boq_st: [`${data.boq_st} boquillas estándar`, data.boq_st != '0' ? true: false],
+    boq_oculta: [
+      `${data.boq_oculta} boquillas oculas`,
+      data.boq_oculta != "0" ? true : false,
+    ],
+    boq_st: [
+      `${data.boq_st} boquillas estándar`,
+      data.boq_st != "0" ? true : false,
+    ],
     cajon: [
       `1 Cajón de herramientas de ${data.cajon} mm`,
       data.cajon > 0 ? true : false,
@@ -950,8 +990,9 @@ const adicionalesDefault = (data) => {
     ],
     cajon_carroceria_ubic_1: ["", false],
     cajon_carroceria_ubic_2: ["", false],
-    rampa: ['Con rampa',data.rampa=== 'Sí' ? true: false]
-};}
+    rampa: ["Con rampa", data.rampa === "Sí" ? true : false],
+  };
+};
 const condiciones = () => {
   const template = `
       <p class="title mt-3 mb-2">CONDICIONES GENERALES DE LA PRESENTE NOTA DE PEDIDO:</p>
@@ -1047,6 +1088,17 @@ const datosCliente = (data) => {
   `;
   return paragraph;
 };
+const acopladoRural = (data) => {
+  const paragraph = `
+  Un  <strong>Acoplado ${data.carrozado.toLocaleLowerCase()}</strong>, nuevo, marca GROSS, tres ejes (1 + 2).<br>
+  Suspensión <strong>${data.suspension.toLocaleLowerCase()}</strong>.<br>
+  Tren trasero con balancín.<br>
+  Soportes y anclajes <strong>${data.tipo_cabezal.toLocaleLowerCase()}</strong>.<br>
+  Luces LED.<br>
+  ${data.llantas_acero} llantas de ACERO de ${data.medidas}
+  `
+  return paragraph
+}
 const initial = (data) => {
   const paragraph = `Un${data.tipo === "Carrocería" ? "a" : ""} <strong>${
     data.tipo
@@ -1059,9 +1111,19 @@ const initial = (data) => {
           .replace(
             "-",
             " + "
-          )}</strong> ejes tubulares, mazas tipo disco, y campanas de freno de 8 pulgadas${data.pbt_trabajo!='N/A'? `; peso bruto total de trabajo de <strong>${data.pbt_trabajo}</strong>`:''}${getTipoLlanta(data)} de ${data.medidas} pulgadas</strong>; suspensión <strong>${data.suspension.toLocaleLowerCase()}</strong>; sistema de frenos neumático ABS;`
+          )}</strong> ejes tubulares, mazas tipo disco, y campanas de freno de 8 pulgadas${
+          data.pbt_trabajo != "N/A"
+            ? `; peso bruto total de trabajo de <strong>${data.pbt_trabajo}</strong>`
+            : ""
+        }${getTipoLlanta(data)} de ${
+          data.medidas
+        } pulgadas</strong>; suspensión <strong>${data.suspension.toLocaleLowerCase()}</strong>; sistema de frenos neumático ABS;`
       : ""
-  } luces reglamentarias LED de 24 [V]${data.porta_auxilio!='N/A'? `; con porta auxilio <strong>${data.porta_auxilio}</strong>`:''}`;
+  } luces reglamentarias LED de 24 [V]${
+    data.porta_auxilio != "N/A"
+      ? `; con porta auxilio <strong>${data.porta_auxilio}</strong>`
+      : ""
+  }`;
   return paragraph;
 };
 const dimensions = (data) => {
@@ -1151,25 +1213,28 @@ const getTipoDestape = (data) => {
     return tipo === "Estándar" ? "26.9 mm" : "42.5 mm";
   };
   const cant_arcos = (data) => {
-    let rsp = ''
-    if(data.tipo!='Carrocería') {
-      rsp = data.cant_puertas_laterales / 2 + (data.cant_puertas_laterales / 2 - 1);
+    let rsp = "";
+    if (data.tipo != "Carrocería") {
+      rsp =
+        data.cant_puertas_laterales / 2 + (data.cant_puertas_laterales / 2 - 1);
     }
-    return  rsp
+    return rsp;
   };
-  let tipo_destape = '';
-  if(!data.carrozado.includes('Batea')){
-  if (data.cumbrera_lateral == "Cumbrera p/destape") {
-    tipo_destape = `; con destape, lona color <strong>${data.color_lona}</strong>`;
-  } 
-  
-  else if (data.cumbrera_lateral == "Cumbrera estándar" || data.cumbrera_lateral =='Sin cumbrera'){
-    tipo_destape = `; ${data.cumbrera_lateral.toLocaleLowerCase()}, <em>con acoples y ${cant_arcos(
-      data
-    )} arcos de ${arcos(data.arcos_centrales)} y 2 arcos de ${arcos(
-      data.arcos_extremos
-    )}, en el frente y contrafrente</em>`;
-  }}
+  let tipo_destape = "";
+  if (!data.carrozado.includes("Batea")) {
+    if (data.cumbrera_lateral == "Cumbrera p/destape") {
+      tipo_destape = `; con destape, lona color <strong>${data.color_lona}</strong>`;
+    } else if (
+      data.cumbrera_lateral == "Cumbrera estándar" ||
+      data.cumbrera_lateral == "Sin cumbrera"
+    ) {
+      tipo_destape = `; ${data.cumbrera_lateral.toLocaleLowerCase()}, <em>con acoples y ${cant_arcos(
+        data
+      )} arcos de ${arcos(data.arcos_centrales)} y 2 arcos de ${arcos(
+        data.arcos_extremos
+      )}, en el frente y contrafrente</em>`;
+    }
+  }
   return tipo_destape;
 };
 const seguros = (data) => {
@@ -1186,21 +1251,24 @@ const seguros = (data) => {
   return seguros;
 };
 const boquillas = (data) => {
-  let boquillas = '';
+  let boquillas = "";
   if (data.tipo != "Carrocería") {
-  if (data.boq_st != "0" && data.boq_oculta != "0") {
-    boquillas = `; con <strong>${data.boq_st} boquillas estándar y ${data.boq_oculta} ocultas</strong>`;
-  } else if (data.boq_st != "0" && data.boq_oculta === "0") {
-    boquillas = `; con <strong>${data.boq_st} boquillas estándar</strong>`;
-  }}
+    if (data.boq_st != "0" && data.boq_oculta != "0") {
+      boquillas = `; con <strong>${data.boq_st} boquillas estándar y ${data.boq_oculta} ocultas</strong>`;
+    } else if (data.boq_st != "0" && data.boq_oculta === "0") {
+      boquillas = `; con <strong>${data.boq_st} boquillas estándar</strong>`;
+    }
+  }
   return boquillas;
 };
 const centroEje = (data) => {
-  const paragraph = `${data.tipo === "Carrocería"? `, centro de eje <strong>${data.centro_eje} mm</strong>`
+  const paragraph = `${
+    data.tipo === "Carrocería"
+      ? `, centro de eje <strong>${data.centro_eje} mm</strong>`
       : ""
   }`;
   return paragraph;
-}
+};
 const translateUbicCajon = (ubic) => {
   let newUbic;
   switch (ubic) {
@@ -1229,25 +1297,49 @@ const cajonHerramientas = (data) => {
 };
 const typeSider = (data) => {
   const paragraph = `${
-    data.carrozado.includes('Sider') ? `; ${data.estira_lona!='N/A'?`con estira lona <strong>${data.estira_lona.toLocaleLowerCase()}</strong>`:''}, con <strong>${data.ventilados_cant} ventilados</strong> , luz entre ventilados de <strong>${data.ventilados_ubic_alt} mm</strong>; con techo de <strong>${data.techo.toLocaleLowerCase()}</strong>, lona lateral ${data.lona_con_logo === 'No' ? `color <strong>${data.lona_color_lateral}</strong>` : 'con logo'}` : ""
+    data.carrozado.includes("Sider")
+      ? `; ${
+          data.estira_lona != "N/A"
+            ? `con estira lona <strong>${data.estira_lona.toLocaleLowerCase()}</strong>`
+            : ""
+        }, con <strong>${
+          data.ventilados_cant
+        } ventilados</strong> , luz entre ventilados de <strong>${
+          data.ventilados_ubic_alt
+        } mm</strong>; con techo de <strong>${data.techo.toLocaleLowerCase()}</strong>, lona lateral ${
+          data.lona_con_logo === "No"
+            ? `color <strong>${data.lona_color_lateral}</strong>`
+            : "con logo"
+        }`
+      : ""
   }`;
   return paragraph;
 };
 const batea = (data) => {
   const paragraph = `
-  ${data.carrozado.includes('Batea') ? `; con traba de puerta <strong>${data.traba_puerta.toLocaleLowerCase()}</strong>, y cilindro de <strong>${data.cilindro}</strong>, con tanque de agua`: ''}`;
-  return paragraph
-}
+  ${
+    data.carrozado.includes("Batea")
+      ? `; con traba de puerta <strong>${data.traba_puerta.toLocaleLowerCase()}</strong>, y cilindro de <strong>${
+          data.cilindro
+        }</strong>, con tanque de agua`
+      : ""
+  }`;
+  return paragraph;
+};
 const comments = (data) => {
- const paragraph = `
- <h6 class="mt-3">Información adicional:</h6>
- ${data.informacion_adicional!='' ? `
+  const paragraph = `
+ <h6 class="mt-3">Observaciones:</h6>
+ ${
+   data.informacion_adicional != ""
+     ? `
   
  <p class="paragraph regular-font">
- ${data.informacion_adicional.replace(/\n/g,'<br>')}
+ ${data.informacion_adicional.replace(/\n/g, "<br>")}
  </p>
-  `: '<p class="paragraph regular-font">No se registran información adicional</p>'} `
- return paragraph
-}
+  `
+     : '<p class="paragraph regular-font">No se registran observaciones</p>'
+ } `;
+  return paragraph;
+};
 
 export { createPDF, htmlBoleto, htmlREG_009, htmlNotaPedido, html_informe };
