@@ -1106,12 +1106,7 @@ const initial = (data) => {
     data.tipo === "Carrocería" ? "a" : "o"
   }, marca GROSS, material COMÚN; ${
     data.tipo != "Carrocería"
-      ? `con chasis de <strong>${data.ejes
-          .replace(/D/g, "")
-          .replace(
-            "-",
-            " + "
-          )}</strong> ejes tubulares, mazas tipo disco, y campanas de freno de 8 pulgadas${
+      ? `con configuración de ejes <strong>${data.ejes}</strong>, ejes tubulares, mazas tipo disco, y campanas de freno de 8 pulgadas${
           data.pbt_trabajo != "N/A"
             ? `; peso bruto total de trabajo de <strong>${data.pbt_trabajo}</strong>`
             : ""
@@ -1291,7 +1286,13 @@ const translateUbicCajon = (ubic) => {
 };
 const cajonHerramientas = (data) => {
   const paragraph = `${
-    data.cajon != "0" ? `, y cajón de herramientas de ${data.cajon} mm` : ""
+    data.cajon != "0" ? `, con cajón de herramientas de ${data.cajon} mm${data.tipo === 'Semirremolque' ? ` y otro de ${data.cajon_adicional} mm`:''}` : ""
+  }`;
+  return paragraph;
+};
+const cajonHerramientasAdiconal = (data) => {
+  const paragraph = `${
+    data.cajon_adicional != "0" ? `, y cajón de herramientas de ${data.cajon} mm` : ""
   }`;
   return paragraph;
 };
