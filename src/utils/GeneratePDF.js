@@ -1135,7 +1135,7 @@ const doors = (data) => {
   if (data.carrozado === "Todo puertas") {
     paragraph = `con <strong>${
       data.cant_puertas_laterales / 2
-    } PUERTAS</strong> por lado`;
+    } pares de PUERTAS</strong> por lado`;
   } else if (
     data.carrozado === "Baranda rebatible" ||
     data.carrozado.includes("Volcador")
@@ -1287,12 +1287,6 @@ const translateUbicCajon = (ubic) => {
 const cajonHerramientas = (data) => {
   const paragraph = `${
     data.cajon != "0" ? `, con cajón de herramientas de ${data.cajon} mm${data.tipo === 'Semirremolque' ? ` y otro de ${data.cajon_adicional} mm`:''}` : ""
-  }`;
-  return paragraph;
-};
-const cajonHerramientasAdiconal = (data) => {
-  const paragraph = `${
-    data.cajon_adicional != "0" ? `, y cajón de herramientas de ${data.cajon} mm` : ""
   }`;
   return paragraph;
 };
