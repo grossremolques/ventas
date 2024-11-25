@@ -35,7 +35,6 @@ class Camion extends ApiServices {
       const IDs = response.map(item => Number(item.id))
       console.log(IDs.filter(item => typeof item == 'string'))
       const lastId = Math.max(...IDs);
-      console.log(lastId)
       return lastId + 1
     } catch (e) {
       console.log(e);

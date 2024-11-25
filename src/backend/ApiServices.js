@@ -16,7 +16,7 @@ class ApiServices {
       });
       return response;
     } catch (e) {
-      console.log(e)
+      console.log(e, this.nameSheet, this.sheetId)
       //401 Request had invalid authentication credentials.
       console.error("Error in getResponse:", `🚫${e.status} ${e.result.error.message}`);
     }

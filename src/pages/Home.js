@@ -42,7 +42,7 @@ const Home = (content) => {
         <li>Editar/Actualizar Camiones existentes</li>
         <li>Agregar dimensiones del camión (REG-CO-0016)</li>
       </ul>
-      `,link: '#/camiones', btnName: 'Ir a Camiones'})}
+      `,link: 'https://grossremolques.github.io/comercial/#/camiones', btnName: 'Ir a Camiones'})}
   </div>
   `
   content.innerHTML = view;
@@ -59,7 +59,7 @@ const card = (props) => {
           <p class="card-text">Acciones que se pueden realizar:</p>
           ${props.content}
         </div>
-        <a href="${props.link}" class="btn btn-danger">${props.btnName}</a>
+        <a href="${props.link}" ${props.title === 'Camiones' ? 'target="_blank"':''} class="btn btn-danger">${props.btnName}</a>
       </div>
     </div>
   `

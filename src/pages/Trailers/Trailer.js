@@ -192,6 +192,7 @@ const updateGestoria = async (event) => {
       const data = getDataFormValid(event, formSell, ".change-save");
       try {
         let response
+        console.log(ID)
         const hasRegister = await DataGestoria.hasRegister(ID);
         if(hasRegister) {
           response = await DataGestoria.updateData({

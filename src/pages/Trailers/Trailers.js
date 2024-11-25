@@ -4,7 +4,6 @@ import { inputComponent, buttonComponent, selectComponent } from "@components/Fo
 import Table from "@components/Table";
 import {DataTrailers, Attributes} from "@backend/Trailers";
 import DataGestoria from "@backend/Gestoria";
-import { sortByTraz } from "../../utils/Tools";
 
 let TableTrailers;
 let previousButton;
