@@ -1229,6 +1229,9 @@ const getTipoDestape = (data) => {
         data.arcos_extremos
       )}, en el frente y contrafrente</em>`;
     }
+    else if( data.cumbrera_lateral == "Cumbrera p/lona cosida") {
+      tipo_destape = `; con <strong>cumbrera p/lona cosida</strong>`;
+    }
   }
   return tipo_destape;
 };
