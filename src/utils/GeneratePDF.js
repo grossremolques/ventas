@@ -812,7 +812,7 @@ const htmlNotaPedido = async (data) => {
         </p>
         <p class="paragraph regular-font">
         ${
-          data.carrozado === "Rural porta cabezal de 45 pies"
+          data.carrozado.includes("Rural porta cabezal de")
             ? acopladoRural(data)
             : `
           ${initial(data)}${dimensions(data)}${doors(data)}${
