@@ -323,6 +323,18 @@ class FormTrailer {
               data: attributes,
               textNode: "tipo_cabezal",
             })}
+            ${selectComponent({
+              col: "12",
+              mdCol:'auto',
+              xlCol: "auto",
+              sizes: "sm",
+              id: "color_chasis",
+              name: "color_chasis",
+              required: true,
+              nameLabel: "Color Chasis",
+              data: attributes,
+              textNode: "color_chasis",
+            })}
           </div>
         </div>
         ${await this.colors()}

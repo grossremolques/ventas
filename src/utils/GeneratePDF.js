@@ -823,7 +823,7 @@ const htmlNotaPedido = async (data) => {
                 data
               )}${cajonHerramientas(data)}${typeSider(
                 data
-              )}; chasis color NEGRO SATINADO GROSS, carrozado color <strong>${data.color_carrozado.toLocaleUpperCase()}</strong>${franja(
+              )}; chasis color <strong>${data.color_chasis}</strong>, carrozado color <strong>${data.color_carrozado.toLocaleUpperCase()}</strong>${franja(
                 data
               )}
           `
