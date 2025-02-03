@@ -22,7 +22,9 @@ const Home = (content) => {
         <li>Agregar Unidades 0 KM</li>
         <li>Editar/Actualizar Unidades 0 KM existentes que se encuentren en estado de <em>Presupuesto</em> o <em>Pendientes</em></li>
         <li>Generar Notas de Pedido</li>
+        <li>Generar Solicitudes de Cambio (NUEVO)</li>
       </ul>
+      <a href="https://grossremolques.github.io/comercial-gross/#/solicitudes" target="_blank" class="mb-2 btn btn-success w-100">Solicitud de Cambio</a>
       `,link: '#/trailers', btnName: 'Ir a Unidades0 KM'})}
     ${card({
       img: IconTitleUsedTrailers, title: 'Unidades usadas', content:`
@@ -33,6 +35,7 @@ const Home = (content) => {
         <li>Generar informe de toma de unidad usado (REG-CO-0193 | <strong>NUEVO</strong>)</li>
         <li>Generar Registro de Control (Ingreso/Entrega | REG-CO-0009)</li>
       </ul>
+      
       `,link: '#/used-trailers', btnName: 'Ir a Unidades Usadas'})}
     ${card({
       img: IconTitleCamion, title: 'Camiones', content:`
@@ -50,7 +53,8 @@ const Home = (content) => {
 const card = (props) => {
   const view = `
     <div class="card" style="max-width: 19rem">
-      <div class="w-100">
+      <div class="w-100""
+>
         <img class="w-100 p-5" src="${props.img}" alt="">
       </div>
       <div class="card-body d-flex justify-content-between flex-column">
