@@ -1,5 +1,5 @@
 import jsPDF from "jspdf";
-import logoGross from "@images/logo_gross.png";
+import logoGross from "@images/logoGross.png";
 import logoISO from "@images/logo_iso9001.png";
 import { Modelos } from "../backend/Trailers";
 const createPDF = (html) => {
@@ -823,9 +823,10 @@ const htmlNotaPedido = async (data) => {
                 data
               )}${cajonHerramientas(data)}${typeSider(
                 data
-              )}; chasis color <strong>${data.color_chasis}</strong>, carrozado color <strong>${data.color_carrozado.toLocaleUpperCase()}</strong>${franja(
+              )}${alturaTrabajo(data)}; chasis color <strong>${data.color_chasis}</strong>, carrozado color <strong>${data.color_carrozado.toLocaleUpperCase()}</strong>${franja(
                 data
               )}
+                
           `
         }
         </p>
@@ -1293,6 +1294,12 @@ const cajonHerramientas = (data) => {
   }`;
   return paragraph;
 };
+const alturaTrabajo = (data) => {
+  const paragraph = `${
+    data.alt_trbj_plato_tractor_cargado != "N/A" ? `, Altura de trabajo del plato del tractor (cargado): <strong>${data.alt_trbj_plato_tractor_cargado} mm</strong>` : ""
+  }`;
+  return paragraph;
+};
 const typeSider = (data) => {
   const paragraph = `${
     data.carrozado.includes("Sider")
@@ -1307,7 +1314,7 @@ const typeSider = (data) => {
         } mm</strong>; con techo de <strong>${data.techo.toLocaleLowerCase()}</strong>, lona lateral ${
           data.lona_con_logo === "No"
             ? `color <strong>${data.lona_color_lateral}</strong>`
-            : "con logo"
+            : `con <strong>logo</strong> color <strong>${data.lona_color_lateral}</strong>`
         }`
       : ""
   }`;

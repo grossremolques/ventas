@@ -462,6 +462,18 @@ class FormTrailer {
           data: attributes,
           textNode: "pbt_trabajo",
         })}
+        ${selectComponent({
+          col: "12",
+          xlCol: "auto",
+          mdCol: "auto",
+          sizes: "sm",
+          id: "alt_trbj_plato_tractor_cargado",
+          name: "alt_trbj_plato_tractor_cargado",
+          required: true,
+          nameLabel: "Alt. trabajo plato tractor",
+          data: attributes,
+          textNode: "alt_trbj_plato_tractor_cargado",
+        })}
       </div>
       <div class="row g-2 mt-2">
         <div class="col-md me-1 col-12 border-card">

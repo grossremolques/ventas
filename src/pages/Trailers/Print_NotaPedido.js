@@ -15,7 +15,7 @@ else {
 const Print_NotaPedido = async (content) => {
   dayjs.locale("es");
   dayjs.extend(localeData);
-  console.log(dayjs('2024-05-01'))
+  //console.log(dayjs('2024-05-01'))
   
   const hash = window.location.hash;
   const code = hash.slice(hash.indexOf("?") + 1);
@@ -24,7 +24,7 @@ const Print_NotaPedido = async (content) => {
   const safeData = data.replace(/%/g, '%25')
   const myData = JSON.parse(decodeURIComponent(safeData));
   const date_boleto = getFechaBoleto(myData.fecha_boleto);
-  console.log(date_boleto)
+  //console.log(date_boleto)
   const meses = dayjs.months();
   const month = meses[date_boleto.month()]//;
   const day = date_boleto.$D
@@ -34,7 +34,7 @@ const Print_NotaPedido = async (content) => {
   const priceOnLetter = currency.numInLetters(price)
   myData['today'] = `${day} de ${month} de ${year}`
   myData['priceLetter'] = priceOnLetter
-  console.log(myData)
+  //console.log(myData)
   const html = await htmlNotaPedido(myData)
   
   const view = `
