@@ -1223,6 +1223,7 @@ class FormTrailer {
     window.location.hash = "/trailers";
   }
   async openBoleto(id) {
+    
     this.modal.holdingRequest();
     try {
       const data = await DataTrailers.getTrailer(id);

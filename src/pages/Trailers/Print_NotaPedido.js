@@ -15,7 +15,6 @@ else {
 const Print_NotaPedido = async (content) => {
   dayjs.locale("es");
   dayjs.extend(localeData);
-  //console.log(dayjs('2024-05-01'))
   
   const hash = window.location.hash;
   const code = hash.slice(hash.indexOf("?") + 1);
@@ -34,7 +33,7 @@ const Print_NotaPedido = async (content) => {
   const priceOnLetter = currency.numInLetters(price)
   myData['today'] = `${day} de ${month} de ${year}`
   myData['priceLetter'] = priceOnLetter
-  //console.log(myData)
+  console.log(myData)
   const html = await htmlNotaPedido(myData)
   
   const view = `

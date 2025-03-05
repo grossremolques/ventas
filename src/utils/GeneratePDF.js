@@ -796,7 +796,7 @@ const htmlNotaPedido = async (data) => {
     <div class="contentPDF">
       ${header()}
       <main class="nota-pedido">
-        <p class="title">NOTA DE PEDIDO</p>
+        <p class="title">${data.status === 'Presupuesto' ? 'PRESUPUESTO' : 'NOTA DE PEDIDO'}</p>
         <p class="id_vendedor">${data.legajo}</p>
         <p class="paragraph small text-end">General Ramírez, ${data.today}</p>
         <p class="paragraph small text-end"><strong>${

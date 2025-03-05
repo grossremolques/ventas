@@ -13,7 +13,7 @@ import { buttonComponent } from "@components/Form";
 import DataGestoria from "@backend/Gestoria";
 import { DataStatus } from "@backend/Status";
 import { DataUsedTrailers } from "@backend/UsedTrailers";
-import DataEmployees from "@backend/Employees" 
+import DataEmployees from "@backend/Employees";
 
 let trailer;
 const template = new FormTrailer();
@@ -24,11 +24,14 @@ let formStatus;
 
 const Trailer = async (content) => {
   ID = getHash().replace("trailer=", "");
-  const permisos = await Permissions.hasPermission()
-  const status = await DataStatus.getStatusById(ID)
+  const permisos = await Permissions.hasPermission();
+  const status = await DataStatus.getStatusById(ID);
   try {
     trailer = await DataTrailers.getTrailer(ID);
-    const hasPermission = permisos  || trailer.status === 'Pendiente' || trailer.status === 'Presupuesto'
+    const hasPermission =
+      permisos ||
+      trailer.status === "Pendiente" ||
+      trailer.status === "Presupuesto";
     const view = `
     ${await template.header()}
     ${await template.formComponent()}
@@ -58,48 +61,51 @@ const Trailer = async (content) => {
     form = document.querySelector("#formTrailer");
     formStatus = document.querySelector("#formStatus");
     loadInputsById(status, formStatus, !hasPermission);
-    
-    setTitleStatus(trailer.status)
+
+    setTitleStatus(trailer.status);
     await template.defaultUI({ value: trailer.modelo });
     listenerChangeEvent(form);
     loadInputsById(trailer, form, !hasPermission);
     const updateButton = document.querySelector("#updateButton");
     updateButton.addEventListener("click", handleUpdate);
-    document.querySelector("#gestoriaButton").addEventListener("click", (event) => {
-      if(isValidForm(event, form)) {
-        const data = document.querySelectorAll(".change-save");
-        if(data.length > 0) {
-          template.modal.create({
-            title: "⚠️ Advertencia",
-            content:
-              "<p>Ha realizado unos cambios que no ha guardado. Guarde los cambios primero, antes de proceder.</p>",
-          });
+    document
+      .querySelector("#gestoriaButton")
+      .addEventListener("click", (event) => {
+        if (isValidForm(event, form)) {
+          const data = document.querySelectorAll(".change-save");
+          if (data.length > 0) {
+            template.modal.create({
+              title: "⚠️ Advertencia",
+              content:
+                "<p>Ha realizado unos cambios que no ha guardado. Guarde los cambios primero, antes de proceder.</p>",
+            });
+          } else {
+            template.openGestoria(updateGestoria, true, ID);
+          }
         }
-        else {
-          template.openGestoria(updateGestoria,true, ID);
-        }
-      }
+      });
+    const buttondefinir = document.querySelector("#definirPresupuesto");
+    buttondefinir.addEventListener("click", () => {
+      const input = document.querySelector("#status");
+      input.value = "Pendiente";
+      input.setAttribute("title", "Pendiente");
+      input.classList.add("change");
+      buttondefinir.classList.add("disabled");
     });
-    const buttondefinir = document.querySelector('#definirPresupuesto')
-      buttondefinir.addEventListener('click',() => {
-        const input = document.querySelector('#status')
-        input.value = 'Pendiente';
-        input.setAttribute('title','Pendiente')
-        input.classList.add('change')
-        buttondefinir.classList.add('disabled')
-      })
   } catch (e) {
     console.log(e);
   }
 };
 const setTitleStatus = (value) => {
-  const input = document.querySelector('#status')
-  input.setAttribute('title',value);
-  input.addEventListener('change',(event) => {
-    input.setAttribute('title',event.target.value);
-  })
-  document.getElementById('definirPresupuesto').toggleAttribute('disabled',input.value !='Presupuesto')
-}
+  const input = document.querySelector("#status");
+  input.setAttribute("title", value);
+  input.addEventListener("change", (event) => {
+    input.setAttribute("title", event.target.value);
+  });
+  document
+    .getElementById("definirPresupuesto")
+    .toggleAttribute("disabled", input.value != "Presupuesto");
+};
 //Actualizar
 const handleUpdate = (event) => {
   const data = getDataFormValid(event, form, ".change-save");
@@ -157,15 +163,26 @@ const updateGestoria = async (event) => {
   formSell = document.querySelector("#formSell");
   if (isValidForm(event, formSell)) {
     const dataUpdate = document.querySelectorAll(".change-save");
-    const status =document.querySelector('#status');
-    const isPresupuesto =  status.value==='Presupuesto'
-    const changeStatus = status.className.includes('change')
+    const status = document.querySelector("#status");
+    const isPresupuesto = status.value === "Presupuesto";
+    const changeStatus = status.className.includes("change");
     if (dataUpdate.length <= 0 && !changeStatus) {
       template.modal.create({
-        title: '🗣️ Nada para actualizar',
-        content: '<p class="text-center">No hay nada para actualizar</p>'
-      })
-      if (!isPresupuesto) {
+        title: "🗣️ Nada para actualizar",
+        content: '<p class="text-center">No hay nada para actualizar</p>',
+      });
+      template.modal.addButtonAction({
+        title: "Boleto",
+        type: "button",
+        color: "danger",
+        id: "boletoButton",
+      });
+      document
+        .querySelector("#boletoButton")
+        .addEventListener("click", async () => {
+          await template.openBoleto(ID);
+        });
+      /* if (!isPresupuesto) {
         template.modal.addButtonAction({
           title: "Boleto",
           type: "button",
@@ -177,31 +194,28 @@ const updateGestoria = async (event) => {
       .addEventListener("click", async () => {
         await template.openBoleto(ID);
       });
-      }
-      
-    } 
-    else {
+      } */
+    } else {
       template.modal.saving();
-      if(changeStatus) {
+      if (changeStatus) {
         await DataStatus.updateData({
           colName: "trazabilidad",
           id: ID,
-          values: { presupuesto: 'No' },
-        })
+          values: { presupuesto: "No" },
+        });
       }
       const data = getDataFormValid(event, formSell, ".change-save");
       try {
-        let response
-        console.log(ID)
+        let response;
+        console.log(ID);
         const hasRegister = await DataGestoria.hasRegister(ID);
-        if(hasRegister) {
+        if (hasRegister) {
           response = await DataGestoria.updateData({
             colName: "trazabilidad",
             id: ID,
             values: data,
           });
-        }
-        else {
+        } else {
           const user = await DataEmployees.getActiveUser();
           data.vendedor = user.alias;
           data.trazabilidad = ID;
@@ -211,12 +225,14 @@ const updateGestoria = async (event) => {
           await DataUsedTrailers.updateData({
             colName: "trazabilidad",
             id: data.tomada_en_venta,
-            values: { tomado_en_venta: Number(ID.replace(".","").replace('-',"")) },///en numero
+            values: {
+              tomado_en_venta: Number(ID.replace(".", "").replace("-", "")),
+            }, ///en numero
           });
         }
-        
+
         if (response && response.status === 200) {
-          template.modalWithBTNBoleto(ID,isPresupuesto)
+          template.modalWithBTNBoleto(ID, isPresupuesto);
         }
       } catch (e) {
         console.log(e);
