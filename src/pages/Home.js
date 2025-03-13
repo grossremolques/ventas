@@ -14,7 +14,7 @@ const Home = (content) => {
         <li>Agregar nuevos clientes</li>
         <li>Editar/Actualizar clientes existentes</li>
       </ul>
-      `,link: '#/clients', btnName: 'Ir a Clientes'})}
+      `,link: 'https://grossremolques.github.io/comercial-gross/#/clientes', btnName: 'Ir a Clientes'})}
     ${card({
       img: IconTitleTrailers, title: 'Unidades 0 km', content:`
       <ul>

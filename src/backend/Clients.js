@@ -55,7 +55,7 @@ class Clients extends ApiServices {
 }
 const DataClients = new Clients({
   sheetId: SheetId,
-  nameSheet: "Registro",
+  nameSheet: "Datos Generales",
   rowHead: 1,
 });
 export default DataClients;

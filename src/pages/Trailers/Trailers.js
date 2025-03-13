@@ -18,7 +18,6 @@ const Data = async () => {
     item.modelo = item.tipo + " " + item.carrozado;
     return item
   })
-  //data = data.sort(sortByTraz);
   return data.reverse()
 }
 const dataJoin = (data1, data2, att1, att2) => {
