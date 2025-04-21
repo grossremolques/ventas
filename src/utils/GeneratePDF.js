@@ -1069,16 +1069,15 @@ const datosCliente = (data) => {
     </div>
     <div class="row">
       <div class="col-auto ps-0">Domicilio:</div>
-      <div class="col border-bottom resaltar">${data.calle} ${data.num}</div>
-      <div class="col-auto">Localidad:</div>
-      <div class="col border-bottom resaltar">${data.localidad}</div>
+      <div class="col border-bottom resaltar">${data.domicilio}</div>
     </div>
     <div class="row">
-      <div class="col-auto ps-0">Departamento/Partido:</div>
-      <div class="col border-bottom resaltar">${data.partido}</div>
+      <div class="col-auto ps-0">Localidad:</div>
+      <div class="col border-bottom resaltar">${data.localidad}</div>
       <div class="col-auto">Provincia:</div>
       <div class="col border-bottom resaltar">${data.provincia}</div>
     </div>
+    
     <div class="row">
       <div class="col-auto ps-0">TEL:</div>
       <div class="col border-bottom resaltar">${data.tel}</div>
@@ -1133,7 +1132,7 @@ const dimensions = (data) => {
 };
 const doors = (data) => {
   let paragraph = "";
-  if (data.carrozado === "Todo puertas") {
+  if (data.carrozado === "Todo puertas" || data.carrozado === "Cerealero") {
     paragraph = `con <strong>${
       data.cant_puertas_laterales / 2
     } pares de PUERTAS</strong> por lado`;
