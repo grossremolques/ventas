@@ -1112,7 +1112,7 @@ const initial = (data) => {
             : ""
         }${getTipoLlanta(data)} de ${
           data.medidas
-        } pulgadas</strong>; suspensión <strong>${data.suspension.toLocaleLowerCase()}</strong>; sistema de frenos neumático ABS;`
+        } pulgadas</strong>; suspensión <strong>${data.suspension.toLocaleLowerCase()}</strong>; sistema de frenos neumático ${data.ejes === "D3"? "EBS" : "ABS"};`
       : ""
   } luces reglamentarias LED de 24 [V]${
     data.porta_auxilio != "N/A"
