@@ -552,6 +552,16 @@ class FormTrailer {
             ${selectComponent({
               col: "12",
               sizes: "sm",
+              id: "OPCIONES_ESPECIALES",
+              name: "OPCIONES_ESPECIALES",
+              required: true,
+              nameLabel: "Opciones Especiales",
+              data: attributes,
+              textNode: "OPCIONES_ESPECIALES",
+            })}
+            ${selectComponent({
+              col: "12",
+              sizes: "sm",
               id: "rampa",
               name: "rampa",
               required: true,
