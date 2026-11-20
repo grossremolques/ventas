@@ -773,7 +773,7 @@ const footerNotaPedido = (firma) => {
     <br>
     República de Entre Ríos 1880.  –  General Ramírez. (3164)  –  Entre Ríos. – Argentina.
     <br>
-    Tel./Fax: +54 (0343) 4902101/4901238 – E-mail: info@grossremolques.com – Web: www.grossremolques.com
+    Tel.Cel: +54 (0343) 4282259/5437055 – E-mail: info@grossremolques.com – Web: www.grossremolques.com
     </p>
     `;
   return template;
@@ -782,7 +782,7 @@ const header = () => {
   const template = `
     <header class="header">
       <div>
-        <img src='${logoGross}' alt="logo" width="210px">
+        <img src='${logoGross}' alt="logo" width="300px" style="display: block; margin-bottom: 8px">
       </div>
       <div>
         <img src='${logoISO}' alt="" width="65px">
